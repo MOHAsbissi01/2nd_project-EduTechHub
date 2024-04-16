@@ -1,0 +1,59 @@
+ /* Resetting default margin and padding */
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+/* Styles for the button container */
+div button {
+    margin-right: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 14px;
+}
+
+div button:hover {
+    background-color: #0056b3;
+}
+
+/* Styles for the table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Styles for the image in the table */
+table img {
+    max-width: 100px;
+    height: auto;
+}
+
+/* Styles for the links in the table */
+table a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+table a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}

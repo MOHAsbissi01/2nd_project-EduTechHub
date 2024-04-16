@@ -148,7 +148,7 @@
 
             <div class="container">
                 <p>You can update, view, or delete your data using the buttons below:</p>
-                <button onclick="window.location.href='edu/view/read_data.php'">View Data</button>
+                <button onclick="window.location.href='view/read_data.php'">View Data</button>
             </div>
             
              

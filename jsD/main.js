@@ -205,3 +205,113 @@
     
 })(jQuery);
 
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+
+    // Function to validate a single field
+    function validateField(field) {
+        const fieldName = field.name;
+        const value = field.value.trim();
+        let isValid = true;
+        let errorMessage = '';
+
+        // Validation rules for each field
+        switch(fieldName) {
+            case 'firstname':
+                // First name cannot be empty
+                if (value === '') {
+                    isValid = false;
+                    errorMessage = 'Please enter your first name.';
+                }
+                break;
+            case 'lastname':
+                // Last name cannot be empty
+                if (value === '') {
+                    isValid = false;
+                    errorMessage = 'Please enter your last name.';
+                }
+                break;
+            case 'phone':
+                // Phone number cannot be empty and must be a valid 10-digit number
+                const phoneRegex = /^\d{10}$/;
+                if (value === '') {
+                    isValid = false;
+                    errorMessage = 'Please enter your phone number.';
+                } else if (!phoneRegex.test(value)) {
+                    isValid = false;
+                    errorMessage = 'Please enter a valid 10-digit phone number.';
+                }
+                break;
+            case 'email':
+                // Email cannot be empty and must be a valid email address
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (value === '') {
+                    isValid = false;
+                    errorMessage = 'Please enter your email.';
+                } else if (!emailRegex.test(value)) {
+                    isValid = false;
+                    errorMessage = 'Please enter a valid email address.';
+                }
+                break;
+            case 'dob':
+                // Date of birth cannot be empty
+                if (value === '') {
+                    isValid = false;
+                    errorMessage = 'Please enter your date of birth.';
+                }
+                break;
+            case 'pass1':
+                // Password cannot be empty
+                if (value === '') {
+                    isValid = false;
+                    errorMessage = 'Please enter a password.';
+                }
+                break;
+            case 'pass2':
+                // Confirm password must match password
+                const pass1Value = document.getElementById('pass1').value;
+                if (value !== pass1Value) {
+                    isValid = false;
+                    errorMessage = 'Passwords do not match.';
+                }
+                break;
+            default:
+                // Do nothing for other fields
+                break;
+        }
+
+        // Display error message if field is invalid
+        const errorField = document.getElementById(`${fieldName}-error`);
+        if (!isValid) {
+            errorField.textContent = errorMessage;
+        } else {
+            errorField.textContent = '';
+        }
+
+        return isValid;
+    }
+
+    // Attach event listeners to input fields
+    const inputFields = form.querySelectorAll('input');
+    inputFields.forEach(function(input) {
+        input.addEventListener('input', function() {
+            validateField(input);
+        });
+    });
+
+    // Form submission handler
+    form.addEventListener('submit', function(event) {
+        // Prevent form submission if there are validation errors
+        let isValid = true;
+        inputFields.forEach(function(input) {
+            if (!validateField(input)) {
+                isValid = false;
+            }
+        });
+
+        if (!isValid) {
+            event.preventDefault();
+            // You can display a general error message here if needed
+        }
+    });
+});
