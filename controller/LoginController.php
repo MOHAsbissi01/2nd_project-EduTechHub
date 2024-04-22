@@ -3,31 +3,43 @@ include_once '../model/UserModelLogin.php';
 
 class LoginController {
     public function login() {
-        $message = array(); // Initialize message array
+        $message = array();   
 
         if(isset($_POST['submit'])){
-            $email = $_POST['email'];
+            $email = $_POST['email'];  
             $password = $_POST['password'];
 
-            // Call the loginUser method from UserModelLogin to handle the login process
+            // loginU ---> UserModelLogin  
             $loginResult = UserModelLogin::loginUser($email, $password);
 
             if($loginResult === true){
-                // Redirect to home.php if login successful
-              
-                
-
-               header('location: ../view/edit_user.php?email=' . urlencode($email));
-
-                exit();
+                 
+                $userId = UserModelLogin::getUserId($email);
+        
+                // Redirect o ID
+                switch($userId) {
+                    case 1:
+                        header('location: ../indexD.php?email=' . urlencode($email));
+                        exit();
+                    case 2:
+                        header('location: ../index-2.php?email=' . urlencode($email));
+                        exit();
+                    case 3:
+                        header('location: ../index-3.php?email=' . urlencode($email));
+                        exit();
+                    default:
+                         
+                        header('location: ../index.php?email=' . urlencode($email));
+                        exit();
+                }
             } else {
-                // Add error message to message array
+                
                 $message[] = $loginResult;
             }
         }
 
-        // Return message array to display any error messages
-        return $message;
+        
+        return $message;  
     }
 }
 ?>

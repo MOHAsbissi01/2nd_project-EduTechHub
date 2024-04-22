@@ -1,12 +1,13 @@
- 
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User</title>
+    <meta charset="utf-8">
+    <title>EduTechHub
+         - Bootstrap Admin Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
     <!-- Favicon -->
     <link href="imgD/favicon.ico" rel="icon">
@@ -21,19 +22,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="../libD/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../libD/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="libD/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="libD/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="../cssD/bootstrap.min.css" rel="stylesheet">
+    <link href="cssD/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="../cssD/style.css" rel="stylesheet">
-    
+    <link href="cssD/style.css" rel="stylesheet">
 </head>
-<body>
 
-<div class="container-fluid position-relative bg-white d-flex p-0">
+<body>
+    <div class="container-fluid position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -46,7 +46,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="../index-.php" class="navbar-brand mx-4 mb-3">
+                <a href="indexD.html" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>EduTechHub
                     </h3>
                 </a>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="../index-.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="indexD.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -92,7 +92,7 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="../index-.php" class="navbar-brand d-flex d-lg-none me-4">
+                <a href="indexD.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
@@ -184,176 +184,81 @@
        <!-- hello wprd -->  
         
         <!-- N  ///////////////////////////////////////////////-->
-        <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
-        }
-        h2 {
-            color: #333;
-        }
-        form {
-            margin-top: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-        }
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        input[type="file"] {
-            margin-top: 5px;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        select {
-            width: calc(100% - 22px);
-            padding: 10px;
-        }
-    </style>
 
+        <div class="content">  
+                        <link rel="stylesheet" href="css/style1.css">
+                    <script>
+                        function filterUsers(role) {
+                            var rows = document.querySelectorAll("tr");
+                            rows.forEach(function(row) {
+                                if (row.cells.length > 0) {
+                                    if (role === "all" || row.cells[0].innerText === role) {
+                                        row.style.display = "";
+                                    } else {
+                                        row.style.display = "none";
+                                    }
+                                }
+                            });
+                        }
 
-<div class="container">
-<?php
-ob_start() ;
-// Include the config file and start the session
-require_once '../model/config.php';
+                        function confirmDelete(email) {
+                            if (confirm("Are you sure you want to delete this user?")) {
+                                window.location.href = "controller/delete_data.php?email=" + email;
+                            }
+                        }
+                    </script>
+                
 
-// Check if form is submitted
-if (isset($_POST['submit'])) {
-    // Get form data
-    $email = $_POST['email']; // Retrieve email from form submission
-    $name = $_POST['name'];
-    $password = $_POST['password']; // Plain text password
-    $id = $_POST['id']; // User ID
-    $image = $_FILES['image'];
+                <div>
+                    <button onclick="filterUsers('all')">All Users</button>
+                    <button onclick="filterUsers('1')">Admins</button>
+                    <button onclick="filterUsers('2')">Teachers</button>
+                    <button onclick="filterUsers('3')">Students</button>
+                    
+                </div>
 
-    // Hash the password
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+               
+                <?php
 
-    try {
-        // Connect to the database
-        $pdo = config::getConnexion();
+                require_once 'model/config.php';
 
-        // Check if image is uploaded
-        if (!empty($image['name'])) {
-            // File upload path
-            $target_dir = "uploaded_img/";
+                try {
+                    $pdo = config::getConnexion();
+                    $stmt = $pdo->prepare("SELECT * FROM users");
+                    $stmt->execute();
 
-            // Append a timestamp to make the filename unique
-            $timestamp = time();
-            $image_name = $timestamp . '_' . basename($image['name']);
-            $target_file = $target_dir . $image_name;
+                    echo "<table>";
+                    echo "<tr><th>ID</th><th>Name</th><th>Email</th><th>Image</th><th>Action</th></tr>";
 
-            // Move uploaded file
-            move_uploaded_file($image['tmp_name'], $target_file);
+                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>";
+                        echo "<td>" . $row['id'] . "</td>";
+                        echo "<td>" . $row['name'] . "</td>";
+                        echo "<td>" . $row['email'] . "</td>";
+                        echo "<td><img src='" . $row['image'] . "' alt='" . $row['name'] . "' style='max-width: 100px;'></td>";
+                        echo "<td><a href='view/edit_user.php?email=" . $row['email'] . "'>Midifier</a> | <a href='javascript:void(0)' onclick='confirmDelete(\"" . $row['email'] . "\")'>Supprimer</a></td>";
+                        echo "</tr>";
+                    }
 
-            // Update user details including the image file name and hashed password
-            $stmt = $pdo->prepare("UPDATE users SET name = :name, password = :password, id = :id, image = :image WHERE email = :email");
-            $stmt->execute([':name' => $name, ':password' => $hashed_password, ':id' => $id, ':image' => "uploaded_img/" . $image_name, ':email' => $email]);
-        } else {
-            // Update user details excluding the image file name and hashed password
-            $stmt = $pdo->prepare("UPDATE users SET name = :name, password = :password, id = :id WHERE email = :email");
-            $stmt->execute([':name' => $name, ':password' => $hashed_password, ':id' => $id, ':email' => $email]);
-        }
-   
-        // Redirect 
-        header('Location:  ../read_data.php');
-        exit(); 
+                    echo "</table>";
+                } catch(PDOException $e) {
+                    echo "Error: " . $e->getMessage();
+                }
 
-    } catch(PDOException $e) {
-        echo "<p>Error: " . $e->getMessage() . "</p>";
-    } catch(Exception $e) {
-        echo "<p>Error: " . $e->getMessage() . "</p>";
-    }
-} else {
-    // Check if user email is provided in the URL
-    if (!isset($_GET['email']) || empty($_GET['email'])) {
-        echo "<p>User email not provided</p>";
-        exit();
-    }
+                ?> 
+  
+            </div>
 
-    // Get the user email from the URL
-    $email = $_GET['email'];
-
-    try {
-        // Connect to the database
-        $pdo = config::getConnexion();
-
-        // Prepare and execute the query to fetch user details
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
-        $stmt->execute([':email' => $email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        // Check if user exists
-        if (!$user) {
-            echo "<p>User not found</p>";
-            exit();
-        }
-
-        // Display the user's image
-        if (!empty($user['image'])) {
-            echo "<img src='" . $user['image'] . "' alt='" . $user['name'] . "' style='max-width: 100%;'><br>";
-        }
-
-        // Display the form to edit user details
-        echo "<h2>Edit User</h2>";
-        echo "<form action='edit_user.php' method='POST' enctype='multipart/form-data'>"; // 
-        echo "<input type='hidden' name='email' value='" . $user['email'] . "'>"; // Include email as a hidden input field
-        echo "Name: <input type='text' name='name' value='" . $user['name'] . "'><br>";
-        echo "Password: <input type='password' name='password' value=''><br>";
-        echo "Image: <input type='file' name='image'><br>";
-        echo "Role: <select name='id'>";
-        echo "<option value='1' " . ($user['id'] == 1 ? 'selected' : '') . ">Admin</option>";
-        echo "<option value='2' " . ($user['id'] == 2 ? 'selected' : '') . ">Teacher</option>";
-        echo "<option value='3' " . ($user['id'] == 3 ? 'selected' : '') . ">Student</option>";
-        echo "</select><br>";
-        echo "<input type='submit' name='submit' value='Update'>";
-        echo "</form>";
-
-    } catch(PDOException $e) {
-        echo "<p>Error: " . $e->getMessage() . "</p>";
-    }
-}
-?>
-
-</div>
+     
 
 
 
-     <!--//////////////////////////////-->
-</div>
+
+            
+
+
+         
+        </div>
         <!-- Content End -->
 
 
@@ -373,20 +278,7 @@ if (isset($_POST['submit'])) {
     <script src="libD/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="../jsD/main.js"></script>
+    <script src="jsD/main.js"></script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
- 

@@ -16,7 +16,7 @@ if (isset($_GET['email'])) {
         $stmt->execute([':email' => $email]);
 
         // Redirect back to read_data.php after deletion
-        header('Location: ../view/read_data.php');
+        header('Location: ../tableD.php');
         exit();
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
