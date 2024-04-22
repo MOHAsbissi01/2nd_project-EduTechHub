@@ -101,17 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     </style>
 </head>
 <body>
-    <header><img src="..\asset\logo.png" alt="Logo" width="150" height="150"></header>
-
-    <!-- Formulaire pour saisir l'ID du cours à supprimer -->
-    <h1>Supprimer un cours</h1>
-    <form action="" method="POST">
-        <label for="id_cours">ID du cours:</label>
-        <input type="text" id="id_cours" name="id" required>
-        <input type="submit" value="Supprimer">
-    </form>
-
-    <form method="get" action="listecours.php">
+    <header><img src="..\assets\logo.png" alt="Logo" width="150" height="150"></header>
+    <form method="get" action="../2nd_project-EduTechHub/listeD.php">
         <button type="submit">Retourner vers la liste</button>
     </form>
 </body>
