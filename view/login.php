@@ -147,16 +147,12 @@ if(filter_var($message, FILTER_VALIDATE_URL)) {
                         event.preventDefault();
                         return false;
                     }
-                    
                     if (email.indexOf("@") == -1) {
                         alert("L'email doit contenir un '@'!");
                         event.preventDefault();
                         return false;
                     }
-                    
-                    
                 }
-
                 </script>
                 
                 <div class="form-container">
@@ -168,7 +164,6 @@ if(filter_var($message, FILTER_VALIDATE_URL)) {
                             echo '<div class="message">'.htmlspecialchars($msg).'</div>';
                         }
                     }
-                     
                     ?> 
                     <input type="text" name="email" placeholder="Enter email" class="box">
                     <input type="password" name="password" placeholder="Enter password" class="box">

@@ -183,7 +183,7 @@
 
        <!-- hello wprd -->  
         
-        <!-- N  ///////////////////////////////////////////////-->
+        <!-- ///////////////////////////////////////////////////////////////////////////////////////-->
 
         <div class="content">  
                         <link rel="stylesheet" href="css/style1.css">
@@ -200,24 +200,19 @@
                                 }
                             });
                         }
-
                         function confirmDelete(email) {
                             if (confirm("Are you sure you want to delete this user?")) {
                                 window.location.href = "controller/delete_data.php?email=" + email;
                             }
                         }
                     </script>
-                
-
                 <div>
                     <button onclick="filterUsers('all')">All Users</button>
                     <button onclick="filterUsers('1')">Admins</button>
                     <button onclick="filterUsers('2')">Teachers</button>
                     <button onclick="filterUsers('3')">Students</button>
                     
-                </div>
-
-               
+                </div>               
                 <?php
 
                 require_once 'model/config.php';
@@ -228,7 +223,7 @@
                     $stmt->execute();
 
                     echo "<table>";
-                    echo "<tr><th>ID</th><th>Name</th><th>Email</th><th>Image</th><th>Action</th></tr>";
+                    echo "<tr><th>Role</th><th>Name</th><th>Email</th><th>Image</th><th>Action</th></tr>";
 
                     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
@@ -244,19 +239,13 @@
                 } catch(PDOException $e) {
                     echo "Error: " . $e->getMessage();
                 }
-
                 ?> 
   
             </div>
 
      
 
-
-
-
-            
-
-
+ 
          
         </div>
         <!-- Content End -->

@@ -1,15 +1,15 @@
 <?php
-include_once '../model/config.php'; // Include the config file if not already included
+include_once '../model/config.php'; 
 class UserModel {
 
     public static function registerUser($name, $email, $password, $image, $role, $code) {
-        // Database connection
+        
         $pdo = config::getConnexion();
-        // Variable to track registration status
+        //   track regis 
         $registrationStatus = '';
-        // Check if the role field is set in the form submission
+        //  
         if(isset($role)){
-            // Check if the role  
+               
             if($role == 'admin'){
                 if($code !== 'esprit'){
                     $registrationStatus = 'Incorrect code for admin registration!';
@@ -19,7 +19,7 @@ class UserModel {
             // Default 
             $role = 'student';
         }
-        // Check if the emai 
+         
         $stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email');
         $stmt->execute([':email' => $email]);
         $existingUser = $stmt->fetch();
@@ -47,21 +47,23 @@ class UserModel {
                 default:
                     $id = 3;  
             }
-            // Check  image 
+            // Check  img  
             if(isset($image['name']) && $image['error'] === UPLOAD_ERR_OK) {
-                // Image   uploaded --> process 
+                // Image   up 
                 $image_name = $image['name'];
                 $image_tmp_name = $image['tmp_name'];
-                $image_folder = 'uploaded_img/'.$image_name;
+                $image_folder = '../uploaded_img/'.$image_name;
+                $image_name_path = 'uploaded_img/'.$image_name;
                 move_uploaded_file($image_tmp_name, $image_folder);
             } else {
-                // No uploade 
+                // No up  
                 $image_folder = ''; 
+                 
             }
-            // Insert  user  datab
+            // Insert datab
             $stmt = $pdo->prepare('INSERT INTO users(id, name, email, password, image) VALUES(:id, :name, :email, :password, :image)');
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-            $insert = $stmt->execute([':id' => (int)$id, ':name' => $name, ':email' => $email, ':password' => $passwordHash, ':image' => $image_folder]);  
+            $insert = $stmt->execute([':id' => (int)$id, ':name' => $name, ':email' => $email, ':password' => $passwordHash, ':image' => $image_name_path]);  
            
            if($insert){
                 $registrationStatus = 'Registered successfully!';

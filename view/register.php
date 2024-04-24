@@ -126,6 +126,7 @@ $message = $registerController->register();
 
                     <script>
                          function validateForm() {
+
                         var email = document.forms["registerForm"]["email"].value;
                         var password = document.forms["registerForm"]["password"].value;
                         var cpassword = document.forms["registerForm"]["cpassword"].value;
@@ -141,7 +142,21 @@ $message = $registerController->register();
                         event.preventDefault();
                         return false;
                     }
+
                     
+                     /*
+
+                    var fileInput = document.querySelector('input[type="file"]');
+                    var filePath = fileInput.value;
+                    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+                    if (!allowedExtensions.exec(filePath)) {
+                        alert('Invalid file type');
+                        fileInput.value = '';
+                        return false;} else
+                        {
+                            return true;
+                    
+                    } */
                         
                     }
 

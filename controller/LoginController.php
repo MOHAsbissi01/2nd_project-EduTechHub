@@ -16,10 +16,10 @@ class LoginController {
                  
                 $userId = UserModelLogin::getUserId($email);
         
-                // Redirect o ID
+                // Redirect 
                 switch($userId) {
                     case 1:
-                        header('location: ../indexD.php?email=' . urlencode($email));
+                        header('location: ../index-.php?email=' . urlencode($email));
                         exit();
                     case 2:
                         header('location: ../index-2.php?email=' . urlencode($email));
@@ -37,8 +37,6 @@ class LoginController {
                 $message[] = $loginResult;
             }
         }
-
-        
         return $message;  
     }
 }

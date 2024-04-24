@@ -38,6 +38,9 @@
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
+
+                 
+
             </div>
         </div>
         <!-- Spinner End -->
@@ -246,44 +249,44 @@
 
 <div class="container">
 <?php
-ob_start() ;
-// Include the config file and start the session
+ob_start() ;  
+ 
 require_once '../model/config.php';
 
-// Check if form is submitted
+// Check    submitted
 if (isset($_POST['submit'])) {
-    // Get form data
-    $email = $_POST['email']; // Retrieve email from form submission
+     
+    $email = $_POST['email']; // Retrieve fr submission
     $name = $_POST['name'];
-    $password = $_POST['password']; // Plain text password
-    $id = $_POST['id']; // User ID
+    $password = $_POST['password'];  
+    $id = $_POST['id'];  
     $image = $_FILES['image'];
 
-    // Hash the password
+    // Hash
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     try {
-        // Connect to the database
+         
         $pdo = config::getConnexion();
 
-        // Check if image is uploaded
+        // Check up
         if (!empty($image['name'])) {
-            // File upload path
+             
             $target_dir = "uploaded_img/";
 
-            // Append a timestamp to make the filename unique
+            
             $timestamp = time();
-            $image_name = $timestamp . '_' . basename($image['name']);
+            $image_name = $timestamp . '_' . basename($image['name']);  
             $target_file = $target_dir . $image_name;
 
-            // Move uploaded file
+            // Move up 
             move_uploaded_file($image['tmp_name'], $target_file);
 
-            // Update user details including the image file name and hashed password
+            // Update use
             $stmt = $pdo->prepare("UPDATE users SET name = :name, password = :password, id = :id, image = :image WHERE email = :email");
             $stmt->execute([':name' => $name, ':password' => $hashed_password, ':id' => $id, ':image' => "uploaded_img/" . $image_name, ':email' => $email]);
         } else {
-            // Update user details excluding the image file name and hashed password
+             
             $stmt = $pdo->prepare("UPDATE users SET name = :name, password = :password, id = :id WHERE email = :email");
             $stmt->execute([':name' => $name, ':password' => $hashed_password, ':id' => $id, ':email' => $email]);
         }
@@ -298,39 +301,39 @@ if (isset($_POST['submit'])) {
         echo "<p>Error: " . $e->getMessage() . "</p>";
     }
 } else {
-    // Check if user email is provided in the URL
+    // Check email URL
     if (!isset($_GET['email']) || empty($_GET['email'])) {
         echo "<p>User email not provided</p>";
         exit();
     }
 
-    // Get the user email from the URL
+    // Get  email   URL
     $email = $_GET['email'];
 
     try {
-        // Connect to the database
+         
         $pdo = config::getConnexion();
 
-        // Prepare and execute the query to fetch user details
+        // fetch user d 
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->execute([':email' => $email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Check if user exists
+          
         if (!$user) {
-            echo "<p>User not found</p>";
+            echo "<p>User not found not exit</p>";
             exit();
         }
 
-        // Display the user's image
+        // Display  image
         if (!empty($user['image'])) {
-            echo "<img src='" . $user['image'] . "' alt='" . $user['name'] . "' style='max-width: 100%;'><br>";
+            echo "<img src='../" . $user['image'] . "' alt='" . $user['name'] . "' style='max-width: 100%;'><br>";
         }
 
-        // Display the form to edit user details
+        // Display 
         echo "<h2>Edit User</h2>";
         echo "<form action='edit_user.php' method='POST' enctype='multipart/form-data'>"; // 
-        echo "<input type='hidden' name='email' value='" . $user['email'] . "'>"; // Include email as a hidden input field
+        echo "<input type='hidden' name='email' value='" . $user['email'] . "'>"; //  email hidden  
         echo "Name: <input type='text' name='name' value='" . $user['name'] . "'><br>";
         echo "Password: <input type='password' name='password' value=''><br>";
         echo "Image: <input type='file' name='image'><br>";
@@ -342,10 +345,12 @@ if (isset($_POST['submit'])) {
         echo "<input type='submit' name='submit' value='Update'>";
         echo "</form>";
 
-    } catch(PDOException $e) {
+    } catch(PDOException $e) 
+     {
         echo "<p>Error: " . $e->getMessage() . "</p>";
     }
 }
+ob_end_flush(); 
 ?>
 
 </div>
