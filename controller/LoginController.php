@@ -1,6 +1,5 @@
 <?php
 include_once '../model/UserModelLogin.php';
-
 class LoginController {
     public function login() {
         $message = array();   
@@ -8,12 +7,22 @@ class LoginController {
         if(isset($_POST['submit'])){
             $email = $_POST['email'];  
             $password = $_POST['password'];
+            $captchaResponse = $_POST['g-recaptcha-response'];
+
+            // Verify CAPTCHA response
+            $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LcPHMYpAAAAAK-oGQSVvSqKNUZp62ufhcGqEXYj&response=" . $captchaResponse);
+            $responseKeys = json_decode($response, true);
+
+            if ($responseKeys["success"] == false) {
+                $message[] = "Le CAPTCHA est incorrect.";
+                return $message;
+            }
 
             // loginU ---> UserModelLogin  
             $loginResult = UserModelLogin::loginUser($email, $password);
 
             if($loginResult === true){
-                 
+                
                 $userId = UserModelLogin::getUserId($email);
         
                 // Redirect 

@@ -58,6 +58,7 @@ class UserModel {
             } else {
                 // No up  
                 $image_folder = ''; 
+                $image_name_path = '';
                  
             }
             // Insert datab

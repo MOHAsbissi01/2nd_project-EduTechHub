@@ -71,14 +71,14 @@
                     <a href="widgetD.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
                     <a href="formD.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="tableD.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-                    <a href="chartD.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+                    <a href="chartD.html" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="signinD.html" class="dropdown-item">Sign In</a>
                             <a href="signupD.html" class="dropdown-item">Sign Up</a>
                             <a href="404D.html" class="dropdown-item">404 Error</a>
-                            <a href="blankD.html" class="dropdown-item active">Blank Page</a>
+                            <a href="blankD.html" class="dropdown-item">Blank Page</a>
                         </div>
                     </div>
                 </div>
@@ -179,17 +179,118 @@
             </nav>
             <!-- Navbar End -->
 
+<!--/////////////////////////////////////////////////////////////////--->
+<?php
+require_once 'model/config.php'; // Include your config.php file
 
-            <!-- Blank Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                    <div class="col-md-6 text-center">
-                        <h3>This is blank page</h3>
-                    </div>
-                </div>
-            </div>
-            <!-- Blank End -->
+try {
+    $pdo = config::getConnexion();
+    $stmt = $pdo->prepare("SELECT * FROM users");
+    $stmt->execute();
 
+    // Initialize counters for user roles and email domains
+    $admins_count = 0;
+    $teachers_count = 0;
+    $students_count = 0;
+    $esprit_count = 0;
+    $gmail_count = 0;
+    $yahoo_count = 0;
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        switch ($row['id']) { // Assuming the role ID is stored in the 'role_id' column
+            case 1:
+                $admins_count++;
+                break;
+            case 2:
+                $teachers_count++;
+                break;
+            case 3:
+                $students_count++;
+                break;
+            // Add more cases for other roles if needed
+        }
+
+        // Extract email domain
+        $email_parts = explode('@', $row['email']);
+        $email_domain = end($email_parts);
+        switch ($email_domain) {
+            case 'esprit.tn':
+                $esprit_count++;
+                break;
+            case 'gmail.com':
+                $gmail_count++;
+                break;
+            case 'yahoo.com':
+                $yahoo_count++;
+                break;
+            // Add more cases for other email domains if needed
+        }
+    }
+
+    // Create data arrays for both charts
+    $roles_data = [
+        ['Role', 'Count'],
+        ['Admins', $admins_count],
+        ['Teachers', $teachers_count],
+        ['Students', $students_count],
+    ];
+
+    $email_domain_data = [
+        ['Email Domain', 'Count'],
+        ['@esprit.tn', $esprit_count],
+        ['@gmail.com', $gmail_count],
+        ['@yahoo.com', $yahoo_count],
+    ];
+
+    // Encode the data as JSON
+    $json_roles_data = json_encode($roles_data);
+    $json_email_domain_data = json_encode($email_domain_data);
+
+    // Echo the Google Charts API script for both charts
+    echo '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>';
+    echo '<script type="text/javascript">';
+    echo 'google.charts.load("current", {"packages":["corechart"]});';
+    echo 'google.charts.setOnLoadCallback(drawRolesChart);';
+    echo 'google.charts.setOnLoadCallback(drawEmailDomainChart);';
+
+    echo 'function drawRolesChart() {';
+    echo 'var data = google.visualization.arrayToDataTable('. $json_roles_data. ');';
+    echo 'var options = {';
+    echo '    title: "User Roles Distribution",';
+    echo '    pieHole: 0.4,';
+    echo '    pieSliceTextStyle: {color: "white"},';
+    echo '    chartArea: {width: "90%", height: "90%"},';
+    echo '    legend: {position: "bottom"},';
+    echo '    colors: ["#ff9999", "#66b3ff", "#99ff99"],';
+    echo '};';
+    echo 'var chart = new google.visualization.PieChart(document.getElementById("user_roles_chart"));';
+    echo 'chart.draw(data, options);';
+    echo '}';
+
+    echo 'function drawEmailDomainChart() {';
+    echo 'var data = google.visualization.arrayToDataTable('. $json_email_domain_data. ');';
+    echo 'var options = {';
+    echo '    title: "Email Domain Distribution",';
+    echo '    pieHole: 0.4,';
+    echo '    pieSliceTextStyle: {color: "white"},';
+    echo '    chartArea: {width: "90%", height: "90%"},';
+    echo '    legend: {position: "bottom"},';
+    echo '    colors: ["#ffcc99", "#ffcc66", "#ffcc33"],';
+    echo '};';
+    echo 'var chart = new google.visualization.PieChart(document.getElementById("email_domain_chart"));';
+    echo 'chart.draw(data, options);';
+    echo '}';
+    echo '</script>';
+} catch (PDOException $e) {
+    echo 'Error: '. $e->getMessage();
+}
+?>
+
+<!-- Display the pie charts -->
+<div id="user_roles_chart" style="width: 600px; height: 400px;"></div>
+<div id="email_domain_chart" style="width: 600px; height: 400px;"></div>
+
+<!--/////////////////////////////////////////////////////////////////-->
 
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
@@ -198,10 +299,7 @@
                         <div class="col-12 col-sm-6 text-center text-sm-start">
                             &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
                         </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                        </div>
+                         
                     </div>
                 </div>
             </div>

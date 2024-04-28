@@ -1,4 +1,3 @@
- 
 <?php
 include_once '../controller/LoginController.php';
 
@@ -16,13 +15,17 @@ if(filter_var($message, FILTER_VALIDATE_URL)) {
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <!-- Google reCAPTCHA -->
+   <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+
+
    <title>Login</title>
    
    
@@ -101,47 +104,59 @@ if(filter_var($message, FILTER_VALIDATE_URL)) {
                 <!--login-->
                  <h2>Welcome to Education</h2>
 
+                  
                  <style>
-                     /* use a style red for a login page   */
-                     .form-container{
-                        background: #f0f0f0;
-                        margin-top: 50px;
-                        padding: 20px;
-                        border-radius: 10px;
-                     }
-                     .box{
-                        width: 100%;
-                        padding: 10px;
-                        margin: 10px 0;
-                        border-radius: 5px;
-                        border: 1px solid #ccc;
-                     }
-                     .btn{
-                        width: 100%;
-                        padding: 10px;
-                        border: none;
-                        background: #333;
-                        color: #fff;
-                        border-radius: 5px;
-                        cursor: pointer;
-                     }
-                     .message{
-                        background: #f2dede;
-                        color: #a94442;
-                        padding: 10px;
-                        margin: 10px 0;
-                        border-radius: 5px;
-                     }
+    /* Use a style red for a login page */
+    .form-container {
+        background-color: #f0f0f0;
+        margin-top: 50px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
 
-                 </style>
+    .box {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
 
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
+    .btn:hover {
+        background-color: #444;
+    }
+
+    .message {
+        background-color: #f2dede;
+        color: #a94442;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+</style>
+                
 
                 <script>
+
                     function validateForm(event) {
                     var email = document.forms["loginForm"]["email"].value;
                     var password = document.forms["loginForm"]["password"].value;
-                    
+                    var captchaResponse = grecaptcha.getResponse();
+
                     if (email == "" || password == "") {
                         alert("Veuillez remplir tous les champs requis!");
                         event.preventDefault();
@@ -152,7 +167,14 @@ if(filter_var($message, FILTER_VALIDATE_URL)) {
                         event.preventDefault();
                         return false;
                     }
+                    if (captchaResponse.length == 0) {
+                        alert("Veuillez cocher la case reCAPTCHA!");
+                        event.preventDefault();
+                        return false;
+                    }
                 }
+
+
                 </script>
                 
                 <div class="form-container">
@@ -169,9 +191,11 @@ if(filter_var($message, FILTER_VALIDATE_URL)) {
                     <input type="password" name="password" placeholder="Enter password" class="box">
                     <input type="submit" name="submit" value="Login Now" class="btn">
                     <p>Don't have an account? <a href="../view/register.php">Register now</a></p>
+
+                    <div class="g-recaptcha" data-sitekey="6LcPHMYpAAAAAJTOLTfO5jFLLyVEYN22V8zFXe59"></div>
         </form>
     </div>
-
+   
 
                 
 
