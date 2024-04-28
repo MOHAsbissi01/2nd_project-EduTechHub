@@ -2,8 +2,10 @@
 <html lang="en">
 
 <head>
+<link rel="shortcut icon" type="image/x-icon" href="logo.ico" />
+
     <meta charset="utf-8">
-    <title>EduTechHub - Bootstrap Admin Template</title>
+    <title> Dashboard</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -69,9 +71,9 @@
                         </div>
                     </div>
                     <a href="widgetD.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <a href="formD.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
+                    <a href="rapportD.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>rapport PDF</a>
                     <a href="tableD.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables de : Data et edit </a>
-                    <a href="chartD.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+                    <a href="chartD.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -86,8 +88,8 @@
             </nav>
         </div>
         <!-- Sidebar End -->
-
-
+    
+ 
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
@@ -103,6 +105,8 @@
                 </form>
                 
             </nav>
+
+             
             <!-- Navbar End -->
 
              <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
@@ -144,18 +148,34 @@
                 button:hover {
                     background-color: #cc0000;
                 }
+
+
+         /*IMAGE LOGO */
+                .center {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 50%;
+                    border-radius: 50%
+                }
+                .MastHead {
+                    background-image: url('logo.png');
+                    background-position: top;
+                    /* Other styling properties for the header */
+                }
+
+
             </style>
 
-            <div class="container">
-                <p>You can update, view, or delete your data using the buttons below:</p>
-                <button onclick="window.location.href='view/read_data.php'">View Data</button>
-            </div>
-            
              
+                     
+       
  
-
-     
-
+             <div class="MastHead">
+              
+             <img src="uploaded_img/logo.png" alt="Logo" class="center">
+               </div>
+    
             <!-- Widgets Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
