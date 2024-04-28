@@ -5,11 +5,11 @@ require('model/config.php'); // Include your database configuration
 // Create a new FPDF instance
 $pdf = new FPDF();
 $pdf->AddPage();
-$pdf->SetFont('Arial', 'B', 50);
+$pdf->SetFont('Arial', 'B', 50);  
 
 // Add the logo and company name at the top
-$pdf->Image('uploaded_img/logo.png', 75, 5, 70); // Adjust X, Y, and size as needed
-$pdf->Ln(50); // Add 10 units of space after the image
+$pdf->Image('uploaded_img/11.png', 75, 5, 70); // Adjust X, Y, and size as needed
+$pdf->Ln(100); // Add 10 units of space after the image
 
 $pdf->Cell(0, 35, 'EduTechHub', 0, 1, 'C'); // Centered company name
 //name company bigger 

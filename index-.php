@@ -2,14 +2,14 @@
 <html lang="en">
 
   <head>
-
+  <link rel="shortcut icon" type="image/x-icon" href="logo.ico" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="TemplateMo">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
-    <title>Education Meeting HTML5 Template</title>
+    <title>Admin</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -103,7 +103,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="caption">
-              <h6>Hello Students</h6>
+              <h6>Hello Admin</h6>
               <h2>Welcome to Education</h2>
               
                 <p  ><span style="color: red;">EduTechHub</span>, your gateway to innovative learning. Here, you can access interactive courses, expert tutorials, and a community dedicated to educational success. Start your journey with us and unlock new possibilities! </p>
