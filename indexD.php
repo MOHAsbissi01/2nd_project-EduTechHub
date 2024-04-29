@@ -69,7 +69,13 @@
                         </div>
                     </div>
                     <a href="widgetD.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <a href="View/menu.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Event Management</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Events Management</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="View/addEvent.php" class="dropdown-item">Add Event</a>
+                            <a href="View/eventslist.php" class="dropdown-item">Events List</a>
+                            <a href="View/stat.php" class="dropdown-item">Events Stats</a>
+                        </div>
                     <a href="tableD.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chartD.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                     <div class="nav-item dropdown">

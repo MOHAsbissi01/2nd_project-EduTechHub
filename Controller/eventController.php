@@ -10,6 +10,21 @@ class EventController {
         $this->eventModel = new EventModel();
     }
 
+
+    public function displayEvents() {
+        // Retrieve all events from the model
+        $events = $this->eventModel->getEvents();
+        
+        // Pass the events to the view for display
+        require_once '../View/events.php'; // Assuming events.php is your webpage for displaying events
+    }
+    
+    public function getEvents() {
+        // Retrieve events from the model
+        return $this->eventModel->getEvents();
+    }
+
+
     public function createEvent() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nom = $_POST['nom'];
@@ -21,48 +36,58 @@ class EventController {
             $type = 'atelier'; // You can adjust this as needed
             $frais = $_POST['frais'];
             $duree = $_POST['duree'];
+            $max = $_POST['max'];
 
             // Check if any field is empty
-            if (empty($nom) || empty($sujet) || empty($date) || empty($lieu) || empty($organizateur) || empty($type) || empty($frais) || empty($duree)) {
-                return "Please fill in all fields.";
+            if (empty($nom) || empty($sujet) || empty($date) || empty($lieu) || empty($organizateur) || empty($type) || empty($frais) || empty($duree) || empty($max)) {
+                return "<script>alert('Please fill in all fields.'</script>";
             }
 
             // Check if the date is in the future or today
             $today = date("Y-m-d");
             if ($date < $today) {
-                return "Invalid date input. Event date must be today or in the future.";
+                return "<script>alert('Invalid date input. Event date must be today or in the future.')</script>";
             }
 
             // Attempt to add the event
-            $result = $this->eventModel->addEvent($nom, $sujet, $date, $lieu, $organizateur, $affiche, $type, $frais, $duree);
+            $result = $this->eventModel->addEvent($nom, $sujet, $date, $lieu, $organizateur, $affiche, $type, $frais, $duree, $max);
 
             if ($result) {
                 header('Location: ../View/success.php');
                 exit;
             } else {
-                return 'An error occurred during creation.';
+                return "<script>alert('An error occurred during creation.')</script>";
             }
         }
         return false;
     }
 
-    public function subscribeEvent($event_id, $username) {
+    public function subscribeEvent($eventId, $username) {
         // Call the model method to subscribe the user to the event
-        return $this->eventModel->subscribeEvent($event_id, $username);
+        $result = $this->eventModel->subscribeEvent($eventId, $username);
+        
+        if ($result) {
+            // Subscription successful
+            return true;
+        } else {
+            // Maximum participants reached
+            return false;
+        }
     }
+    
     
     public function deleteEvent($eventId) {
         return $this->eventModel->deleteEvent($eventId);
     }
 
-    public function updateEvent($eventId, $nom, $sujet, $date, $lieu, $organizateur, $affiche, $type, $frais, $duree) {
+    public function updateEvent($eventId, $nom, $sujet, $date, $lieu, $organizateur, $affiche, $type, $frais, $duree, $max) {
                     // Check if the date is in the future or today
             $today = date("Y-m-d");
             if ($date < $today) {
-                return "Invalid date input. Event date must be today or in the future.";
+                return "<script>alert('Invalid date input. Event date must be today or in the future.')</script>";
             }
         // Attempt to update the event
-        return $this->eventModel->updateEvent($eventId, $nom, $sujet, $date, $lieu, $organizateur, $affiche, $type, $frais, $duree);
+        return $this->eventModel->updateEvent($eventId, $nom, $sujet, $date, $lieu, $organizateur, $affiche, $type, $frais, $duree, $max);
     }
 }
 
@@ -80,7 +105,7 @@ if (isset($_POST['action'])) {
     } elseif ($_POST['action'] === 'updateEvent') {
         // Pass event ID as a parameter to updateEvent method
         $eventId = $_POST['eventId'];
-        $result = $controller->updateEvent($eventId, $_POST['nom'], $_POST['sujet'], $_POST['date'], $_POST['lieu'], $_POST['organizateur'], $_POST['affiche'], $_POST['type'], $_POST['frais'], $_POST['duree']);
+        $result = $controller->updateEvent($eventId, $_POST['nom'], $_POST['sujet'], $_POST['date'], $_POST['lieu'], $_POST['organizateur'], $_POST['affiche'], $_POST['type'], $_POST['frais'], $_POST['duree'], $_POST['max']);
         if ($result !== true) {
             // Handle error
             echo $result;

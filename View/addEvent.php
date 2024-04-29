@@ -5,6 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $controller->createEvent();
 }
 ?>
+<?php include 'common.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,9 +94,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         <label for="duree">Event Duration:</label>
         <input type="text" id="duree" name="duree">
         <div id="dureeError" class="error-message">Event duration is required</div>
+        <label for="max">Max Number of Participants:</label>
+        <input type="number" id="max" name="max">
+        <div id="maxError" class="error-message">Max Number of Participants is required</div>
 
         <input type="submit" value="Confirm" class="btn btn-primary" >
-        <input type="button" value="Cancel" class="btn btn-secondary" onclick="window.location.href='menu.php';">
+        
     </form>
 </div>
 
@@ -111,6 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         var typeInput = document.getElementById('type');
         var fraisInput = document.getElementById('frais');
         var dureeInput = document.getElementById('duree');
+        var maxInput = document.getElementById('max');
 
         var isValid = true;
 
@@ -170,6 +175,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             isValid = false;
         } else {
             document.getElementById('dureeError').style.display = 'none'; // Hide error message
+        }
+
+        if (maxInput.value.trim() === '' || parseInt(maxInput.value) < 10) {
+            document.getElementById('maxError').innerText = 'Max Number of Participants must be at least 10';
+            document.getElementById('maxError').style.display = 'block'; // Display error message
+            isValid = false;
+        } else {
+            document.getElementById('maxError').style.display = 'none'; // Hide error message
         }
 
         if (!isValid) {

@@ -21,7 +21,7 @@ $events = $eventModel->getAllEvents($sortCriteria, $page, $eventsPerPage);
 $totalEvents = count($eventModel->getAllEvents()); // Total number of users
 $totalPages = ceil($totalEvents / $eventsPerPage); // Total pages
 ?>
-
+<?php include 'common.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,6 +94,7 @@ $totalPages = ceil($totalEvents / $eventsPerPage); // Total pages
                             <th>Type</th>
                             <th>Frais</th>
                             <th>Duree</th>
+                            <th>Nombre Max de Participants</th>
                             <th>Participants</th>
                             <th>Actions</th>
                         </tr>
@@ -115,29 +116,32 @@ $totalPages = ceil($totalEvents / $eventsPerPage); // Total pages
                                 <td><?php echo htmlspecialchars($event['type']); ?></td>
                                 <td><?php echo htmlspecialchars($event['frais']); ?></td>
                                 <td><?php echo htmlspecialchars($event['duree']); ?></td>
+                                <td><?php echo htmlspecialchars($event['max']); ?></td>
                                 <td> 
                                 <?php
-                // Check if 'participants' key is set and not empty
-                if (isset($event['participants']) && !empty($event['participants'])) {
-                    // Split the string of participants into an array
-                    $participantsArray = explode(',', $event['participants']);
-                    
-                    // Iterate over the array of participants
-                    foreach ($participantsArray as $participant) {
-                        echo htmlspecialchars($participant) . '<br>';
-                    }
-                } else {
-                    // If no participants, display a message
-                    echo 'No participants';
-                }
-            ?>
+// Check if 'participants' key is set and not empty
+if (isset($event['participants']) && !empty($event['participants'])) {
+    // Split the string of participants into an array
+    $participantsArray = explode(',', $event['participants']);
+    
+    // Count the number of participants
+    $participantCount = count($participantsArray);
+    
+    // Display the number of participants
+    echo $participantCount;
+} else {
+    // If no participants, display a message
+    echo 'No participants';
+}
+?>
+
         </td>
                                 <td class="actions">
-                                    <a href="editEvent.php?eventId=<?php echo $event['id']; ?>" class="btn btn-primary btn-sm">Editer</a>
+                                    <a href="editEvent.php?eventId=<?php echo $event['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
                                     <form action="eventslist.php" method="post" onsubmit="return confirm('Voulez vous vraiment supprimer cet evenement?');">
                                         <input type="hidden" name="eventId" value="<?php echo $event['id']; ?>">
                                         <input type="hidden" name="action" value="deleteEvent">
-                                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
                                 </td>
                             </tr>

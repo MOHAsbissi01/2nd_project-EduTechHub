@@ -70,13 +70,13 @@
                       <!-- ***** Menu Start ***** -->
                       <ul class="nav">
                           <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                          <li><a href="meetings.php">Meetings</a></li>
+                          <li><a href="View/events.php">Events</a></li>
                           <li class="scroll-to-section"><a href="#apply">Apply Now</a></li>
                           <li class="has-sub">
                               <a href="javascript:void(0)">Pages</a>
                               <ul class="sub-menu">
-                                  <li><a href="meetings.php">Upcoming Meetings</a></li>
-                                  <li><a href="meeting-details.php">Meeting Details</a></li>
+                                  <li><a href="View/events.php">Upcoming Events</a></li>
+                      
                               </ul>
                           </li>
                           <li class="scroll-to-section"><a href="#courses">Courses</a></li> 
@@ -197,7 +197,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="section-heading">
-            <h2>Upcoming Meetings</h2>
+            <h2>Upcoming Events</h2>
           </div>
         </div>
         <div class="col-lg-4">
@@ -211,7 +211,7 @@
               <li><a href="#">Team Building Meeting</a></li>
             </ul>
             <div class="main-button-red">
-              <a href="meetings.php">All Upcoming Meetings</a>
+              <a href="View/events.php">All Upcoming Events</a>
             </div>
           </div>
         </div>
@@ -223,7 +223,7 @@
                   <div class="price">
                     <span>TND 22.00</span>
                   </div>
-                  <a href="meeting-details.php"><img src="assets/images/meeting-01.jpg" alt="New Lecturer Meeting"></a>
+           
                 </div>
                 <div class="down-content">
                   <div class="date">

@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['search'])) {
     $searchResults = $eventModel->searchEventByName($searchQuery);
 }
 ?>
-
+<?php include 'common.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

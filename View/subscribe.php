@@ -3,8 +3,8 @@ require_once '../Controller/eventController.php'; // Include the EventController
 
 // Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Check if event_id and username are set
-    if (isset($_POST['event_id']) && isset($_POST['username'])) {
+    // Check if event_id and username are set and not empty
+    if (isset($_POST['event_id']) && isset($_POST['username']) && !empty($_POST['username'])) {
         // Sanitize input
         $event_id = $_POST['event_id'];
         $username = $_POST['username'];
@@ -17,18 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($success) {
             // Subscription successful
-            echo "You have successfully subscribed to the event.";
+            echo "<script>alert('You have successfully subscribed to the event.'); setTimeout(function() { window.location.href = '../index.php'; }, 1000);</script>";
         } else {
             // Subscription failed
-            echo "Failed to subscribe to the event.";
+            echo "<script>alert('Failed to subscribe to the event Max Number of Participants reached.'); setTimeout(function() { window.location.href = '../index.php'; }, 1000);</script>";
         }
     } else {
-        // Required fields are missing
-        echo "Event ID and username are required.";
+        // Required fields are missing or empty
+        echo "<script>alert('username is required.'); setTimeout(function() { window.location.href = '../index.php'; }, 1000);</script>";
     }
-} else {
-    // If the form is not submitted, redirect back to the page
-    header("Location: index.php");
-    exit;
 }
 ?>

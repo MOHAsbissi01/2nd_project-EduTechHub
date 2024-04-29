@@ -66,6 +66,7 @@
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="addEvent.php" class="dropdown-item">Add Event</a>
                             <a href="eventslist.php" class="dropdown-item">Events List</a>
+                            <a href="stat.php" class="dropdown-item">Events Stats</a>
                         </div>
                     <a href="../tableD.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="../chartD.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
@@ -141,7 +142,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
+                            <span class="d-none d-lg-inline-flex">Notification</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
@@ -176,28 +177,6 @@
                 </div>
             </nav>
             <!-- Navbar End -->
-
-
-
-      
-        <div class="content">
-            <div class="container mt-5">
-                <h1 class="text-center">Events Management Menu</h1>
-                <div class="row justify-content-center mt-4">
-                    <div class="col-md-6 text-center">
-                        <div class="container mb-3">
-                            <a href="addEvent.php" class="btn btn-primary btn-lg btn-block">Add Event</a>
-                        </div>
-                        <div class="container mb-3">
-                            <a href="eventslist.php" class="btn btn-secondary btn-lg btn-block">Events List</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
