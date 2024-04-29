@@ -125,7 +125,7 @@
 <body>
 <!-- En-tête -->
 <header><img src="..\assets\logo.png" alt="Logo" width="150" height="150"></header>
-<h1>Liste des cours</h1>
+<h1>Liste des documents</h1>
 <form method="get" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
     <label for="tri">Trier par :</label>
     <select name="tri" id="tri">
@@ -248,7 +248,7 @@
     </tbody>
 </table>
 
-<!-- Script pour confirmer la suppression -->
+<!-- Script pour confirmer la suppression et tri -->
 <script>
     function filterByType(type) {
         var tableRows = document.getElementsByTagName('tr');

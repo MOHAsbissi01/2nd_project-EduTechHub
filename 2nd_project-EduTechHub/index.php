@@ -9,8 +9,8 @@
     <meta name="author" content="TemplateMo">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
-    <title>Education Meeting HTML5 Template</title>
-
+    <link rel="shortcut icon" type="image/x-icon" href="logo.ico" />
+    <title>Page d'accueil</title>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -58,40 +58,42 @@
 
   <!-- ***** Header Area Start ***** -->
   <header class="header-area header-sticky">
-      <div class="container">
-          <div class="row">
-              <div class="col-12">
-                  <nav class="main-nav">
-                      <!-- ***** Logo Start ***** -->
-                      <a href="index.html" class="logo">
-                          EduTechHub
-                      </a>
-                      <!-- ***** Logo End ***** -->
-                      <!-- ***** Menu Start ***** -->
-                      <ul class="nav">
-                          <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                          <li><a href="meetings.html">Meetings</a></li>
-                          <li class="scroll-to-section"><a href="#apply">Apply Now</a></li>
-                          <li class="has-sub">
-                              <a href="javascript:void(0)">Pages</a>
-                              <ul class="sub-menu">
-                                  <li><a href="meetings.html">Upcoming Meetings</a></li>
-                                  <li><a href="meeting-details.html">Meeting Details</a></li>
-                              </ul>
-                          </li>
-                          <li class="scroll-to-section"><a href="#courses">Courses</a></li> 
-                          <li class="scroll-to-section"><a href="#contact">Contact Us</a></li> 
-                            <li><a href="indexD.php">ADMIN</a></li> 
-                      </ul>        
-                      <a class='menu-trigger'>
-                          <span>Menu</span>
-                      </a>
-                      <!-- ***** Menu End ***** -->
-                  </nav>
-              </div>
-          </div>
-      </div>
-  </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="index.html" class="logo">
+                        EduTechHub
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                        <li><a href="meetings.html">Meetings</a></li>
+                        <li><a href="test.php">Test</a></li> <!-- Ajout du lien Test -->
+                        <li class="scroll-to-section"><a href="#apply">Apply Now</a></li>
+                        <li class="has-sub">
+                            <a href="javascript:void(0)">Pages</a>
+                            <ul class="sub-menu">
+                                <li><a href="meetings.html">Upcoming Meetings</a></li>
+                                <li><a href="meeting-details.html">Meeting Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="scroll-to-section"><a href="#courses">Courses</a></li>
+                        <li class="scroll-to-section"><a href="#contact">Contact Us</a></li>
+                        <li><a href="indexD.php">ADMIN</a></li> 
+                    </ul>        
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
   <!-- ***** Header Area End ***** -->
 
   <!-- ***** Main Banner Area Start ***** -->
@@ -388,7 +390,6 @@
     <title>Accueil</title>
     <!-- Styles CSS ici -->
               <style>
-              <style>
               body {
                   background: url('../asset/sss.jpg') center/cover no-repeat;
                   color: #333333;
@@ -506,6 +507,7 @@
                   display: flex;
                   flex-wrap: wrap;
                   justify-content: space-between;
+                  position : relative;
               }
 
               .filter-buttons {
@@ -571,12 +573,16 @@
               }
 
               .pagination {
-                  text-align: center;
-                  position: fixed;
-                  bottom: 20px;
-                  left: 50%;
-                  transform: translateX(-50%);
+                text-align: center;
+                position: absolute;
+                bottom: 20px; /* Réglez la distance par rapport au bas du conteneur */
+                left: 0;
+                right: 0; /* Ajustez les marges gauche et droite pour centrer horizontalement */
+                display: flex;
+                justify-content: center;
+                align-items: center;
               }
+              
 
               .pagination a {
                   display: inline-block;
@@ -595,6 +601,12 @@
               .white-text {
                   color: white;
               }
+
+              .pagination .icon {
+                  display: inline-block;
+                  vertical-align: middle;
+                  margin-bottom: 10px; /* Ajustez la marge inférieure pour déplacer légèrement les icônes vers le bas */
+}
           </style>
 
 

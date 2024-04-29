@@ -7,8 +7,8 @@ require_once 'config.php';
 
 <head>
     <meta charset="utf-8">
-    <title>EduTechHub - Bootstrap Admin Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="shortcut icon" type="image/x-icon" href="logo.ico" />
+    <title>Widgets</title>    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
@@ -72,7 +72,16 @@ require_once 'config.php';
                             <a href="elementD.html" class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
-                    <a href="listeD.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Documents</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-key me-2"></i>Questions Quizz</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="dshb-quiz.php" class="dropdown-item">Créer</a>
+                            <a href="dshb-bookmarks.php" class="dropdown-item">Liste</a>
+                        </div>
+                    </div>
+                    <a href="listeD.php" class="nav-item nav-link"><i class="fa fa-book me-2"></i>Documents</a>
+                    <a href="testD.php" class="nav-item nav-link"><i class="fa fa-clipboard me-2"></i>Test/Quizz</a>
+                    <a href="listeResD.php" class="nav-item nav-link"><i class="fa fa-dice me-2"></i>Résultats</a>
                     <a href="widgetD.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
                     <a href="formD.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="tableD.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>

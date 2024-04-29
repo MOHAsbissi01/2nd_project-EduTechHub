@@ -56,6 +56,14 @@ public function addCours($titre, $proprietaire, $prix, $description, $image, $ca
     $pdo = config::getConnexion();
 
     try {
+        // Déplacer le fichier téléchargé vers le dossier 'uploads'
+        $pdf_tmp = $pdf['tmp_name'];
+        $pdf_path = '../uploads/' . $pdf['name'];
+        move_uploaded_file($pdf_tmp, $pdf_path);
+
+        // Utiliser le chemin relatif correct pour enregistrer le fichier dans la base de données
+        $pdf_path_db = '../uploads/' . $pdf['name'];
+
         $query = $pdo->prepare("INSERT INTO cours (titre, proprietaire, prix, description, image, category, pdf) VALUES (:titre, :proprietaire, :prix, :description, :image, :category, :pdf)");
         $query->bindParam(':titre', $titre);
         $query->bindParam(':proprietaire', $proprietaire);
@@ -63,29 +71,27 @@ public function addCours($titre, $proprietaire, $prix, $description, $image, $ca
         $query->bindParam(':description', $description);
         $query->bindParam(':image', $image);
         $query->bindParam(':category', $category);
-        $query->bindParam(':pdf', $pdf);
-        
-        // Déplacer le fichier téléchargé vers le dossier 'uploads'
-        $pdf_tmp = $_FILES['pdf']['tmp_name'];
-        $pdf_path = '../uploads/' . $_FILES['pdf']['name'];
-        move_uploaded_file($pdf_tmp, $pdf_path);
-
-        // Utiliser le chemin relatif correct pour enregistrer le fichier dans la base de données
-        $pdf = '../uploads/' . $_FILES['pdf']['name'];
+        $query->bindParam(':pdf', $pdf_path_db);
 
         if ($query->execute()) {
             return true;
         } else {
             // Ajoutez des messages de débogage ici
-            echo "Error executing insert query. Debug info: " . implode(" ", $query->errorInfo());
+            $errorInfo = $query->errorInfo();
+            if (is_array($errorInfo)) {
+                echo "Error executing delete query. Debug info: " . implode(" ", $errorInfo);
+            } else {
+                echo "Error executing delete query.";
+            }
             return false;
-        }
+        }        
     } catch (PDOException $e) {
         // Ajoutez des messages de débogage ici
         echo "Error executing insert query. Exception: " . $e->getMessage();
         return false;
     }
 }
+
 
 
     public function showCours($id_cours)

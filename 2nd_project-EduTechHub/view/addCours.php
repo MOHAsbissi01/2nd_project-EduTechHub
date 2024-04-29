@@ -126,7 +126,7 @@ input[type="submit"]:hover {
 <header>
     <img src="../assets/logo.png" alt="Logo" width="150" height="150">
 </header>
-<h1>Ajout Cours</h1>
+<h1>Ajout Document</h1>
 
 <!-- Ajoutez cette section pour afficher le message de succès ou d'erreur -->
 <div id="message">

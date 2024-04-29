@@ -15,18 +15,20 @@ class CategorieC {
         }
     }
 
-    public function getPiecesByCategoryId($id_category) {
+    public function getCoursByCategoryId($category_id)
+    {
         $pdo = config::getConnexion();
-        try {
-            $query = $pdo->prepare("SELECT * FROM cours WHERE category = :id_category");
-            $query->bindParam(':id_category', $id_category, PDO::PARAM_INT);
-            $query->execute();
-            return $query->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            // Handle errors here
-            return [];
-        }
+        $query = $pdo->prepare("SELECT cours.*, categorie.type_doc
+                                FROM cours
+                                INNER JOIN categorie ON cours.category = categorie.id_category
+                                WHERE categorie.id_category = :category_id");
+        $query->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+        $query->execute();
+        $cours = $query->fetchAll();
+    
+        return $cours;
     }
+    
 
     public function getCoursByTypeAndCategory($type_doc, $id_category) {
         $pdo = config::getConnexion();
@@ -44,7 +46,7 @@ class CategorieC {
     public function getCoursById($id_cours) {
         $pdo = config::getConnexion();
         try {
-            $query = $pdo->prepare("SELECT * FROM pcours WHERE id_cours = :id_cours");
+            $query = $pdo->prepare("SELECT * FROM cours WHERE id_cours = :id_cours");
             $query->bindParam(':id_cours', $id_cours, PDO::PARAM_INT);
             $query->execute();
             return $query->fetch(PDO::FETCH_ASSOC);
