@@ -185,61 +185,95 @@
         
         <!-- ///////////////////////////////////////////////////////////////////////////////////////-->
 
-        <div class="content">  
-                        <link rel="stylesheet" href="css/style1.css">
-                    <script>
-                        function filterUsers(role) {
-                            var rows = document.querySelectorAll("tr");
-                            rows.forEach(function(row) {
-                                if (row.cells.length > 0) {
-                                    if (role === "all" || row.cells[0].innerText === role) {
-                                        row.style.display = "";
-                                    } else {
-                                        row.style.display = "none";
-                                    }
-                                }
-                            });
-                        }
-                        function confirmDelete(email) {
-                            if (confirm("Are you sure you want to delete this user?")) {
-                                window.location.href = "controller/delete_data.php?email=" + email;
-                            }
-                        }
-                    </script>
-                <div>
-                    <button onclick="filterUsers('all')">All Users</button>
-                    <button onclick="filterUsers('1')">Admins</button>
-                    <button onclick="filterUsers('2')">Teachers</button>
-                    <button onclick="filterUsers('3')">Students</button>
-                    
-                </div>               
-                <?php
-
-                require_once 'model/config.php';
-
-                try {
-                    $pdo = config::getConnexion();
-                    $stmt = $pdo->prepare("SELECT * FROM users");
-                    $stmt->execute();
-
-                    echo "<table>";
-                    echo "<tr><th>Role</th><th>Name</th><th>Email</th><th>Image</th><th>Action</th></tr>";
-
-                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<tr>";
-                        echo "<td>" . $row['id'] . "</td>";
-                        echo "<td>" . $row['name'] . "</td>";
-                        echo "<td>" . $row['email'] . "</td>";
-                        echo "<td><img src='" . $row['image'] . "' alt='" . $row['name'] . "' style='max-width: 100px;'></td>";
-                        echo "<td><a href='view/edit_user.php?email=" . $row['email'] . "'>Midifier</a> | <a href='javascript:void(0)' onclick='confirmDelete(\"" . $row['email'] . "\")'>Supprimer</a></td>";
-                        echo "</tr>";
+        <div class="content">
+    <link rel="stylesheet" href="css/style1.css">
+    <script>
+        function filterUsers(role) {
+            var rows = document.querySelectorAll("tr");
+            rows.forEach(function(row) {
+                if (row.cells.length > 0) {
+                    if (role === "all" || row.cells[0].innerText === role) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
                     }
-
-                    echo "</table>";
-                } catch(PDOException $e) {
-                    echo "Error: " . $e->getMessage();
                 }
-                ?> 
+            });
+        }
+
+        function searchByNameOrEmail() {
+            var input = document.getElementById("searchInput").value.toUpperCase();
+            var rows = document.querySelectorAll("tr");
+            rows.forEach(function(row) {
+                if (row.cells.length > 0) {
+                    var name = row.cells[1].innerText.toUpperCase(); // Assuming name is in the second cell
+                    var email = row.cells[2].innerText.toUpperCase(); // Assuming email is in the third cell
+                    if (name.includes(input) || email.includes(input)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            });
+        }
+
+        // Trigger search on keyup
+        document.getElementById("searchInput").addEventListener("keyup", searchByNameOrEmail);
+    </script>
+     
+    <input type="text" id="searchInput" placeholder="Search by name or email">
+    <button onclick="searchByNameOrEmail()">Search</button> <!-- Added the Search button -->
+    <button onclick="filterUsers('all')">All Users</button>
+    <button onclick="filterUsers('1')">Admins</button>
+    <button onclick="filterUsers('2')">Teachers</button>
+    <button onclick="filterUsers('3')">Students</button>
+
+
+             
+    <?php
+    require_once 'model/config.php';
+
+    $limit = 5
+    ; // Nombre d'éléments par page
+    $page = isset($_GET['page']) ? $_GET['page'] : 1;
+    $start = ($page - 1) * $limit;
+
+    try {
+        $pdo = config::getConnexion();
+        $stmt = $pdo->prepare("SELECT * FROM users LIMIT :start, :limit");
+        $stmt->bindParam(':start', $start, PDO::PARAM_INT);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        echo "<table>";
+        echo "<tr><th>Role</th><th>Name</th><th>Email</th><th>Image</th><th>Action</th></tr>";
+
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<tr>";
+            echo "<td>" . $row['id'] . "</td>";
+            echo "<td>" . $row['name'] . "</td>";
+            echo "<td>" . $row['email'] . "</td>";
+            echo "<td><img src='" . $row['image'] . "' alt='" . $row['name'] . "' style='max-width: 100px;'></td>";
+            echo "<td><a href='view/edit_user.php?email=" . $row['email'] . "'>Midifier</a> | <a href='javascript:void(0)' onclick='confirmDelete(\"" . $row['email'] . "\")'>Supprimer</a></td>";
+            echo "</tr>";
+        }
+
+        echo "</table>";
+
+        // Pagination
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM users");
+        $stmt->execute();
+        $total_results = $stmt->fetchColumn();
+        $total_pages = ceil($total_results / $limit);
+
+        for ($i = 1; $i <= $total_pages; $i++) {
+            echo "<a href='tableD.php?page=" . $i . "'>" . $i . "</a> ";
+        }
+    } catch(PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+?>
+
   
             </div>
 
@@ -247,6 +281,8 @@
 
  
          
+        </div>
+
         </div>
         <!-- Content End -->
 

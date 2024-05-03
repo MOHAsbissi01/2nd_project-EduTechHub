@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" type="image/x-icon" href="../logo.ico" />
+     <title>Read Edit Delete DATA</title>
 <link rel="stylesheet" href="../css/style1.css">
     <script>
         function filterUsers(role) {

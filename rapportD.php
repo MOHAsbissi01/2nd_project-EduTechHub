@@ -2,37 +2,51 @@
 require('model/fpdf.php'); // Include FPDF library
 require('model/config.php'); // Include your database configuration
 
-// Create a new FPDF instance
-$pdf = new FPDF();
+class PDF extends FPDF
+{
+    // Page header
+    function Header()
+    {
+        $this->SetFillColor(204, 229, 255);
+        //   background 
+        $this->Rect(0, 0, $this->w, $this->h, 'F');
+
+         
+        $this->SetFont('Arial', 'B', 50);
+        $this->Image('uploaded_img/11.png', 80, 5, 50); // Adjust X, Y, and size as needed
+        $this->Ln(60); // Add 10 units of space after the image
+        $this->Cell(0, 35, 'EduTechHub', 0, 1, 'C');
+        $this->SetFont('Arial', 'B', 16);
+        $this->Ln(20);
+        $this->Cell(30, 0, 'Users', 0, 1, 'C');
+        $this->Ln(10);
+    }
+
+    // Page footer
+    function Footer()
+    {
+        $this->SetY(-15);
+        $this->SetFont('Arial', 'I', 8);
+        $this->Cell(0, 10, 'Follow us on Facebook: www.facebook.com/edutechhub', 0, 0, 'C');
+        $this->Ln(5);
+        $this->Cell(0, 10, 'Email us at : info@edutechhub.com', 0, 0, 'C');
+    }
+}
+
+// Create a new PDF instance
+$pdf = new PDF();
 $pdf->AddPage();
-$pdf->SetFont('Arial', 'B', 50);  
 
-// Add the logo and company name at the top
-$pdf->Image('uploaded_img/11.png', 75, 5, 70); // Adjust X, Y, and size as needed
-$pdf->Ln(100); // Add 10 units of space after the image
+$pdf->SetTextColor(0, 0, 0); 
+$pdf->SetFillColor(255, 255, 255); 
 
-$pdf->Cell(0, 35, 'EduTechHub', 0, 1, 'C'); // Centered company name
-//name company bigger 
-$pdf->SetFont('Arial', 'B', 16);
-$pdf->Ln(20); // Add 10 units of space after the company name
-$pdf->Cell(30, 0, 'Users', 0, 1, 'C');
-// Add some space (adjust the value as needed)
-$pdf->Ln(10); // Add 10 units of space after the title
-
-// Set the colors for the text and background
-$pdf->SetTextColor(0, 0, 0); // Black text
-$pdf->SetFillColor(255, 255, 255); // White background
-
-// Display data in a table (adjust column widths as needed)
 $pdf->Cell(30, 10, 'ID', 1, 0, 'C', true);
 $pdf->Cell(50, 10, 'Name', 1, 0, 'C', true);
 $pdf->Cell(70, 10, 'Email', 1, 0, 'C', true);
 $pdf->Cell(40, 10, 'Image', 1, 1, 'C', true);
 
 try {
-    // Get the PDO instance from the config class
     $pdo = config::getConnexion();
-
     $stmt = $pdo->prepare("SELECT id, name, email, image FROM users");
     $stmt->execute();
 
@@ -41,32 +55,16 @@ try {
         $pdf->Cell(30, 10, $row['id'], 1, 0, 'C');
         $pdf->Cell(50, 10, $row['name'], 1, 0, 'C');
         $pdf->Cell(70, 10, $row['email'], 1, 0, 'C');
-        // Display the actual user image (retrieve URL from database)
         $pdf->Cell(40, 10, 'User Image', 1, 1, 'C');
     }
-    $pdf->Ln(20);
-    // Call the footer function
-    Footer();
 
-    // Set the appropriate headers for download
+    $pdf->Ln(20);
+
     header('Content-Type: application/pdf');
-    header('Content-Disposition: attachment; filename="edutechhub_report.pdf"'); // Specify the filename
+    header('Content-Disposition: attachment; filename="edutechhub_report.pdf"');
 
     $pdf->Output();
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
-}
-
-function Footer()
-{
-    global $pdf;
-    $pdf->SetTextColor(0, 0, 0); // Black text
-    $pdf->SetFillColor(255, 255, 255); // White background
-
-    // Customize the footer content (contact info)
-    $footerText = 'Follow us  on Facebook: www.facebook.com/edutechhub ' ;
-    $footerText = 'Email us  at : info@edutechhub.com';
-
-    $pdf->Cell(0, 16, $footerText, 0, 1, 'C');
 }
 ?>

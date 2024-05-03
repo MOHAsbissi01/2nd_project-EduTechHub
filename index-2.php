@@ -69,11 +69,11 @@
                       <ul class="nav">
                           <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                           <li><a href="meetings.html">Meetings</a></li>
-                          
+                         
                            
                           <li class="scroll-to-section"><a href="#courses">Upload Courses</a></li> 
                           <li class="scroll-to-section"><a href="#contact">Contact Us</a></li> 
-                          
+                          <li> <a href="view/login.php">Logout</a> </li>
                       </ul>        
                       <a class='menu-trigger'>
                           <span>Menu</span>
@@ -198,8 +198,10 @@
               <li><a href="#">Innovative Meeting</a></li>
               <li><a href="#">Team Building Meeting</a></li>
             </ul>
+           
             <div class="main-button-red">
               <a href="meetings.html">All Upcoming Meetings</a>
+              
             </div>
           </div>
         </div>

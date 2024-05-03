@@ -155,8 +155,11 @@
                     display: block;
                     margin-left: auto;
                     margin-right: auto;
-                    width: 50%;
+                    width: 20%;
                     border-radius: 50%
+                    /*smaller 50%*/ 
+                    
+            
                 }
                 .MastHead {
                     background-image: url('logo.png');

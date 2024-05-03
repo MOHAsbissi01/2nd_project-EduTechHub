@@ -60,6 +60,27 @@
           <div class="row">
               <div class="col-12">
                   <nav class="main-nav">
+                    <!--//////////-->
+                    <style>
+                .center {
+                    display: block;
+                    margin-right: 0;
+                    width: 5%;
+                    border-radius: 50%;
+                }
+
+                .MastHead {
+                    background-image: url('logo.png');
+                    background-position: top;
+                    /* Other styling properties for the header */
+                }
+            </style>
+
+            <div class="MastHead">
+                <img src="uploaded_img/logo.png" alt="Logo" class="center">
+            </div>
+
+
                       <!-- ***** Logo Start ***** -->
                       <a href="index.html" class="logo">
                           EduTechHub

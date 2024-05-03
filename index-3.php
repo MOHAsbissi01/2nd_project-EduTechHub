@@ -4,13 +4,14 @@
   <head>
 
      <link rel="shortcut icon" type="image/x-icon" href="logo.ico" />
+     <title>Student</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="TemplateMo">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
-    <title>Student</title>
+    
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -70,15 +71,19 @@
                       <ul class="nav">
                           <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                           <li><a href="meetings.html">Meetings</a></li>
+                          <li> <a href="edit-2-3.php">Edit Profile</a> </li>
                           
+                        
                           <li class="has-sub">
                               <a href="javascript:void(0)">Pages</a>
                               <ul class="sub-menu">
                                   <li><a href="books.php">Search for books</a></li>
                                   <li><a href="space.php">Space </a></li>
+                                 
                               </ul>
                           </li>
                           <li class="scroll-to-section"><a href="#courses">Courses</a></li> 
+                          <li> <a href="view/login.php">Logout</a> </li>
                           
                              
                       </ul>        
@@ -91,6 +96,9 @@
           </div>
       </div>
   </header>
+
+
+ 
   <!-- ***** Header Area End ***** -->
 
   <!-- ***** Main Banner Area Start ***** -->

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once '../model/UserModelLogin.php';
 class LoginController {
     public function login() {
@@ -24,6 +25,7 @@ class LoginController {
             if($loginResult === true){
                 
                 $userId = UserModelLogin::getUserId($email);
+                $_SESSION['email'] = $email;
         
                 // Redirect 
                 switch($userId) {

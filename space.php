@@ -157,11 +157,41 @@
               
               
             </style>
-                        
+                   <?php
+                    // Start the session
+                    if(session_status() == PHP_SESSION_NONE){
+                        // session has not started
+                        session_start();
+                    }
+
+                    // Include the config file
+                    include_once 'model/config.php';
+
+                    // Set the email address to the one specified
+                    $email = "sbissimohamed9@gamil.com";
+
+                    // Check if the save button is clicked
+                    if (isset($_POST['save'])) {
+                        // Get the data from the API
+                        $title = $data['title'];
+                        $explanation = $data['explanation'];
+                        $image_url = $data['url'];
+
+                        // Prepare the email
+                        $subject = "NASA's Astronomy Picture of the Day";
+                        $body = "<h2>$title</h2><p>$explanation</p><img src='$image_url' alt='NASA Image of the Day'>";
+
+                        // Send the email
+                        mail($email, $subject, $body);
+                    }
+
+                    ?> 
+
+
                             <h1>NASA's Astronomy Picture of the Day</h1>
             <div class="space-tab">
                 <?php
-                // Your NASA API key
+                
                 $api_key = '8sSd7xP09D5QgPUnSyigBgtlHyw8xZNcJi01zBCq';
 
                 // NASA API endpoint (Astronomy Picture of the Day)
@@ -187,6 +217,9 @@
                 } else {
                     echo "Error fetching NASA data. Please try again later.";
                 }
+
+                echo "<form method='post'><button type='submit' name='save'>Save</button></form>";
+
                 ?>
     </div>
 <!--////////////////////////////////////////-->
