@@ -2,16 +2,19 @@
 require_once '../Controller/TestController.php';
 $controller = new TestController();
 $message = '';
+$allQuestions = $controller->getAllQuestions();
+$allCours = $controller->getAllCours(); // Récupérer tous les cours
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $quizTitle = $_POST['quiz_title'];
     $questions = $_POST['questions'] ?? [];
+    $cours = $_POST['cours'] ?? []; // Récupérer les cours sélectionnés
 
-    if (!empty($quizTitle) && !empty($questions)) {
-        $controller->createTest($quizTitle, $questions);
-        $message = "Test créé avec succès.";
+    if (!empty($quizTitle) && !empty($questions) && !empty($cours)) {
+        $controller->createTestWithCours($quizTitle, $questions, $cours); // Méthode modifiée pour gérer les cours
+        $message = "Test créé avec succès avec des cours associés.";
     } else {
-        $message = "Veuillez remplir tous les champs requis et sélectionner au moins une question.";
+        $message = "Veuillez remplir tous les champs requis et sélectionner au moins une question et un cours.";
     }
 }
 
@@ -115,6 +118,14 @@ input[type="submit"]:hover {
                 <?= htmlspecialchars($question['quiz_title']) ?>
             </div>
         <?php } ?>
+        <label>Sélectionner les cours:</label>
+        <?php foreach ($allCours as $cours) { ?>
+            <div>
+                <input type='checkbox' name='cours[]' value='<?= $cours['id_cours'] ?>'>
+                <?= htmlspecialchars($cours['titre']) ?>
+            </div>
+        <?php } ?>
+
         <br>
         <input type="submit" value="Créer le Test">
     </form>

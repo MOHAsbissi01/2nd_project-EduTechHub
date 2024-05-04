@@ -55,30 +55,31 @@ $tests = $controller->getAllTests();
     <table>
         <thead>
             <tr>
-                <th>Titre</th>
+                <th>Titre du Test</th>
+                <th>Document associé du Test</th>
                 <th>Questions</th>
                 <th>Options</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <?php if ($tests && !empty($tests)) { ?>
-                <?php foreach ($tests as $test) { ?>
+            <?php if ($tests && !empty($tests)) : ?>
+                <?php foreach ($tests as $test) : ?>
                     <tr>
                         <td><?= htmlspecialchars($test['quiz_title']) ?></td>
+                        <td><?= htmlspecialchars($test['cours']) ?></td>
                         <td><?= htmlspecialchars($test['questions']) ?></td>
                         <td><?= htmlspecialchars($test['options']) ?></td>
                         <td>
                             <button><a href="../view/editTest.php?test_id=<?= $test['id_test'] ?>" style="text-decoration: none; color: inherit;">Modifier</a></button> | 
-                            <button><a href="../view/deleteTest.php?test_id=<?= $test['id_test'] ?>" style="text-decoration: none; color: inherit;">Supprimer</a></button>
+                            <button><a href="../view/deleteTest.php?test_id=<?= $test['id_test'] ?>" style="text-decoration: none; color: inherit;">Supprimer</a></button> |
+                            <button onclick="window.open('../view/printTest.php?test_id=<?= $test['id_test'] ?>')">Imprimer</button>
                         </td>
                     </tr>
-                <?php } ?>
-            <?php } else { ?>
-                <tr>
-                    <td colspan="4">Aucun test trouvé.</td>
-                </tr>
-            <?php } ?>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <tr><td colspan="5">Aucun test trouvé.</td></tr>
+            <?php endif; ?>
         </tbody>
     </table>
 </body>

@@ -121,11 +121,43 @@
             transform: scale(1.05); /* Légère animation de zoom au survol */
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <!-- En-tête -->
 <header><img src="..\assets\logo.png" alt="Logo" width="150" height="150"></header>
+<canvas id="categoriesChart" width="400" height="200"></canvas>
+<canvas id="pricesChart" width="400" height="200"></canvas>
 <h1>Liste des documents</h1>
+<?php
+require_once('../Controller/categorieC.php');
+
+// Instancier votre contrôleur
+$categorieC = new CategorieC();
+
+// Appeler la méthode getCoursStatistics() pour obtenir les statistiques des cours
+$stats = $categorieC->getCoursStatistics();
+
+// Inclure votre vue et transmettre les statistiques des cours
+require_once('../view/listecours.php');
+// Après avoir récupéré les statistiques dans votre contrôleur
+echo "<h2>Statistiques des Cours</h2>";
+echo "<p>Total des cours : " . htmlspecialchars($stats['totalCours']) . "</p>";
+echo "<h3>Répartition par Catégorie</h3>";
+echo "<ul>";
+foreach ($stats['categories'] as $category) {
+    echo "<li>" . htmlspecialchars($category['type_doc']) . ": " . htmlspecialchars($category['count']) . "</li>";
+}
+echo "</ul>";
+echo "<h3>Fourchettes de Prix</h3>";
+echo "<ul>";
+foreach ($stats['prices'] as $price) {
+    echo "<li>" . htmlspecialchars($price['priceRange']) . ": " . htmlspecialchars($price['count']) . "</li>";
+}
+echo "</ul>";
+?>
+
+
 <form method="get" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
     <label for="tri">Trier par :</label>
     <select name="tri" id="tri">
@@ -265,6 +297,74 @@
     function confirmDelete(id) {
         return confirm("Voulez-vous vraiment supprimer le cours avec l'ID " + id + " ?");
     }
+</script>
+<script>
+    var categoriesData = {
+        labels: <?php echo json_encode(array_column($stats['categories'], 'type_doc')); ?>,
+        datasets: [{
+            label: 'Nombre de Documents par Catégorie',
+            data: <?php echo json_encode(array_column($stats['categories'], 'count')); ?>,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    // Afficher le graphique de répartition par catégorie
+    var categoriesChartCtx = document.getElementById('categoriesChart').getContext('2d');
+    var categoriesChart = new Chart(categoriesChartCtx, {
+        type: 'bar',
+        data: categoriesData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Récupérer les données des fourchettes de prix
+    var pricesData = {
+        labels: <?php echo json_encode(array_column($stats['prices'], 'priceRange')); ?>,
+        datasets: [{
+            label: 'Nombre de Documents par Fourchette de Prix',
+            data: <?php echo json_encode(array_column($stats['prices'], 'count')); ?>,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    // Afficher le graphique des fourchettes de prix
+    var pricesChartCtx = document.getElementById('pricesChart').getContext('2d');
+    var pricesChart = new Chart(pricesChartCtx, {
+        type: 'bar',
+        data: pricesData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 </script>
 
 </body>

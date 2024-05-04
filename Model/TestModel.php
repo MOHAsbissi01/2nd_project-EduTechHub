@@ -6,14 +6,17 @@ class TestModel {
     private $quiz_title;
     private $utilisateur;
     private $note_obtenue;
-    private $questions; // Ajoutez cette propriété pour stocker les questions du test
+    private $questions;
+    private $cours; // Ajoutez cette propriété pour stocker les questions du test
 
-    public function __construct($id_test, $quiz_title, $utilisateur, $note_obtenue, $questions = []) {
+    public function __construct($id_test, $quiz_title, $utilisateur, $note_obtenue, $questions, $cours = []) {
         $this->id_test = $id_test;
         $this->quiz_title = $quiz_title;
         $this->utilisateur = $utilisateur;
         $this->note_obtenue = $note_obtenue;
         $this->questions = $questions; // Initialisez la liste des questions
+        $this->cours = $cours; // Initialisez la liste des cours
+
     }
 
     // Définissez une méthode pour ajouter des questions au modèle
@@ -51,6 +54,10 @@ class TestModel {
         return array_map(function($question) {
             return $question['id_question'];
         }, $this->questions);
+    }
+    
+    public function getCours() {
+        return $this->cours;
     }
     
     

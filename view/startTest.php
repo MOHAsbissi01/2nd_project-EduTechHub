@@ -62,26 +62,29 @@ if (!$testDetails) {
     </section>
 
     <section class="container mt-5 mb-5">
-        <h1><?= htmlspecialchars($testDetails->getQuizTitle()) ?></h1>
+    <h1><?= htmlspecialchars($testDetails->getQuizTitle()) ?></h1>
+    <p>Cours associés: <?= htmlspecialchars($testDetails->getCours()) ?></p>
+
         <form id="testForm" action="submitTest.php" method="POST">
-            <input type="hidden" name="test_id" value="<?= htmlspecialchars($testId) ?>">
-            <input type="hidden" name="username" value="<?= htmlspecialchars($username) ?>">
-            <?php foreach ($questions as $question): ?>
-            <div class="question">
-                <p>Question: <?= isset($question['question_text']) ? htmlspecialchars($question['question_text']) : 'Question manquante' ?></p>
-                <div>Options:</div>
-                <ul>
-                    <?php for ($i = 1; $i <= 3; $i++): 
-                        $option = 'option_' . $i;
-                        if (isset($question[$option])): ?>
-                    <li><input type="radio" name="response[<?= htmlspecialchars($question['question_id']) ?>]" value="<?= htmlspecialchars($question[$option]) ?>"> <?= htmlspecialchars($question[$option]) ?></li>
-                    <?php else: echo "<li>Option $i manquante</li>"; endif;
-                    endfor; ?>
-                </ul>
-            </div>
-            <?php endforeach; ?>
-            <button type="button" onclick="submitForm()" class="btn btn-primary">Soumettre les réponses</button>
-        </form>
+    <input type="hidden" name="test_id" value="<?= htmlspecialchars($testId) ?>">
+    <input type="hidden" name="username" value="<?= htmlspecialchars($username) ?>">
+    <?php foreach ($questions as $question): ?>
+    <div class="question">
+        <p>Question: <?= isset($question['question_text']) ? htmlspecialchars($question['question_text']) : 'Question manquante' ?></p>
+        <div>Options:</div>
+        <ul>
+            <?php for ($i = 1; $i <= 3; $i++): 
+                $option = 'option_' . $i;
+                if (isset($question[$option])): ?>
+            <li><input type="radio" name="response[<?= htmlspecialchars($question['question_id']) ?>]" value="<?= htmlspecialchars($question[$option]) ?>"> <?= htmlspecialchars($question[$option]) ?></li>
+            <?php else: echo "<li>Option $i manquante</li>"; endif;
+            endfor; ?>
+        </ul>
+    </div>
+    <?php endforeach; ?>
+    <button type="button" onclick="submitForm()" class="btn btn-primary">Soumettre les réponses</button>
+</form>
+
     </section>
 
     <div class="footer">

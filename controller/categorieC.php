@@ -92,5 +92,39 @@ class CategorieC {
             return [];
         }
     }
+
+    // Nouvelle méthode pour les statistiques des cours
+    public function getCoursStatistics() {
+        $pdo = config::getConnexion();
+        try {
+            // Requête pour le total des cours
+            $totalQuery = $pdo->prepare("SELECT COUNT(*) as total FROM cours");
+            $totalQuery->execute();
+            $totalCours = $totalQuery->fetch(PDO::FETCH_ASSOC)['total'];
+    
+            // Requête pour la répartition par catégorie
+            $categoryQuery = $pdo->prepare("SELECT c.type_doc, COUNT(*) as count FROM cours AS cr INNER JOIN categorie AS c ON cr.category = c.id_category GROUP BY cr.category");
+            $categoryQuery->execute();
+            $categories = $categoryQuery->fetchAll(PDO::FETCH_ASSOC);
+    
+            // Requête pour les fourchettes de prix
+            $priceQuery = $pdo->prepare("SELECT CASE 
+                WHEN prix < 20 THEN 'moins de 20 dinars' 
+                WHEN prix BETWEEN 20 AND 50 THEN '20 à 50 dinars' 
+                ELSE 'plus de 50 dinars' 
+            END as priceRange, COUNT(*) as count FROM cours GROUP BY priceRange");
+            $priceQuery->execute();
+            $prices = $priceQuery->fetchAll(PDO::FETCH_ASSOC);
+    
+            return [
+                'totalCours' => $totalCours,
+                'categories' => $categories,
+                'prices' => $prices
+            ];
+        } catch (PDOException $e) {
+            echo "Error generating statistics: " . $e->getMessage();
+            return [];  // Assurez-vous que cette méthode renvoie toujours un tableau.
+        }
+    }
 }
 ?>
