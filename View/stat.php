@@ -36,7 +36,7 @@
 
     <?php
     // Include the necessary files to access the EventModel class
-    require_once '../Model/EventModel.php';
+    require_once '../Model/eventModel.php';
 
     // Create an instance of the EventModel class
     $eventModel = new EventModel();

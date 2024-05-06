@@ -13,12 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 $sortCriteria = isset($_GET['sort']) ? $_GET['sort'] : null;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$eventsPerPage = 5; // This can be adjusted as needed
+$eventsPerPage = 4; // This can be adjusted as needed
 
 // Fetch events based on sorting criteria
 $events = $eventModel->getAllEvents($sortCriteria, $page, $eventsPerPage);
 
-$totalEvents = count($eventModel->getAllEvents()); // Total number of users
+$totalEvents = count($eventModel->getAllEvents()); // Total number of events
 $totalPages = ceil($totalEvents / $eventsPerPage); // Total pages
 ?>
 <?php include 'common.php'; ?>
@@ -143,6 +143,7 @@ if (isset($event['participants']) && !empty($event['participants'])) {
                                         <input type="hidden" name="action" value="deleteEvent">
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
+                                    <button type="button" class="btn btn-success btn-sm generate-pdf" data-event-id="<?php echo $event['id']; ?>">Generate PDF</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -159,9 +160,19 @@ if (isset($event['participants']) && !empty($event['participants'])) {
             <?php endif; ?>
         </div>
         <div class="text-center mt-4">
-            <button type="button" onclick="window.location.href='menu.php';" class="btn btn-secondary">Retour au Menu</button>
         </div>
     </div>
+    <script>
+    // JavaScript function to handle click event on "Generate PDF" button
+    document.querySelectorAll('.generate-pdf').forEach(button => {
+        button.addEventListener('click', function() {
+            const eventId = this.getAttribute('data-event-id');
+            window.location.href = `generate_pdf.php?eventId=${eventId}`;
+        });
+    });
+</script>
+
+
 </body>
 </html>
 

@@ -24,6 +24,10 @@ class EventController {
         return $this->eventModel->getEvents();
     }
 
+    public function generateEventPDF($eventId) {
+        // Retrieve events from the model
+        return $this->eventModel->generateEventPDF($eventId);
+    }
 
     public function createEvent() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -61,10 +65,9 @@ class EventController {
         }
         return false;
     }
-
-    public function subscribeEvent($eventId, $username) {
+    public function subscribeEvent($eventId, $username, $email) {
         // Call the model method to subscribe the user to the event
-        $result = $this->eventModel->subscribeEvent($eventId, $username);
+        $result = $this->eventModel->subscribeEvent($eventId, $username, $email);
         
         if ($result) {
             // Subscription successful
@@ -75,6 +78,20 @@ class EventController {
         }
     }
     
+    
+    public function cancelInscription($inscriptionId) {
+        // Call the cancelInscription method from the EventModel
+        return $this->eventModel->cancelInscription($inscriptionId);
+    }
+    
+
+
+
+public function getParticipantsByEventId($eventId) {
+    // Call the model method to fetch participants by event ID
+    return $this->eventModel->getParticipantsByEventId($eventId);
+}
+
     
     public function deleteEvent($eventId) {
         return $this->eventModel->deleteEvent($eventId);

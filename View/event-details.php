@@ -25,6 +25,7 @@ if (!$event) {
     header("Location: events.php");
     exit;
 }
+$participants = $eventModel->getParticipantsByEventId($eventId);
 ?>
 
 <!DOCTYPE html>
@@ -86,48 +87,172 @@ if (!$event) {
                         <div class="card-body center-content">
                             <!-- Display event details -->
                             <div class="center-content">
-                            <td> Name of the event : <?php echo htmlspecialchars($event['nom']); ?></td><br>
-                                <td>Subject : <?php echo htmlspecialchars($event['sujet']); ?></td><br>
-                                <td>Date : <?php echo htmlspecialchars($event['date']); ?></td><br>
-                                <td>Location : <?php echo htmlspecialchars($event['lieu']); ?></td><br>
-                                <td>Organizer : <?php echo htmlspecialchars($event['organizateur']); ?></td><br>
-                                <td>Type : <?php echo htmlspecialchars($event['type']); ?></td><br>
-                                <td>Fee : <?php echo htmlspecialchars($event['frais']); ?></td><br>
-                                <td>Duration : <?php echo htmlspecialchars($event['duree']); ?></td><br>
-                                <td>Max Participants Number : <?php echo htmlspecialchars($event['max']); ?></td><br>
-                            </div>
+    <div style="font-size: 20px;">
+        <p><strong>Name of the event:</strong> <?php echo htmlspecialchars($event['nom']); ?></p>
+        <p><strong>Subject:</strong> <?php echo htmlspecialchars($event['sujet']); ?></p>
+        <p><strong>Date:</strong> <?php echo htmlspecialchars($event['date']); ?></p>
+        <p><strong>Location:</strong> <?php echo htmlspecialchars($event['lieu']); ?></p>
+        <p><strong>Organizer:</strong> <?php echo htmlspecialchars($event['organizateur']); ?></p>
+        <p><strong>Type:</strong> <?php echo htmlspecialchars($event['type']); ?></p>
+        <p><strong>Fee:</strong> <?php echo htmlspecialchars($event['frais']); ?></p>
+        <p><strong>Duration:</strong> <?php echo htmlspecialchars($event['duree']); ?></p>
+        <p><strong>Max Participants Number:</strong> <?php echo htmlspecialchars($event['max']); ?></p>
+    </div>
+</div>
+
                             <!-- Display the image -->
                             <div class="center-content">
                                 <img src="../images/<?php echo $event['affiche']; ?>" alt="Event Image" style="max-width: 600px;">
                             </div>
+                            
                         </div>
                     </div>
+                    
                 </div>
+                
             </div>
+            <br>
+            <br>
+            <br>
+<!-- Display participants -->
+<div class="center-content">
+    <h3>Participants</h3>
+    <?php if (!empty($participants)) : ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Inscription ID</th>
+                    <th>User Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($participants as $participant) : ?>
+                    <tr>
+                        <td><?= htmlspecialchars($participant['inscription_id']) ?></td>
+                        <td><?= htmlspecialchars($participant['user_name']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else : ?>
+        <p>No participants subscribed to this event.</p>
+    <?php endif; ?>
+</div>
+
+
             <!-- Subscription form -->
-            <div class="row justify-content-center mt-5">
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Subscribe to Event</h5>
-                            <form action="subscribe.php" method="post">
-                                <input type="hidden" name="event_id" value="<?= $eventId ?>">
-                                <div class="mb-3">
-                                    <label for="username" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username">
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary">Subscribe</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+           <!-- Subscription form -->
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Subscribe to Event</h5>
+                <form action="subscribe.php" method="post">
+    <input type="hidden" name="event_id" value="<?= $eventId ?>">
+    <div class="mb-3">
+        <label for="username1" class="form-label">Username 1</label>
+        <input type="text" class="form-control" id="username1" name="username[]" oninput="validateUsername(this)" required>
+<div id="usernameError" class="invalid-feedback" style="display: none;">Username cannot contain numbers.</div>
+
+        <label for="email1" class="form-label">Email 1</label>
+        <input type="email" class="form-control" id="email1" name="email[]" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Enter a valid email address" required>
+
+    </div>
+    <div class="additional-participants"></div>
+    <button type="button" class="btn btn-secondary add-participant">Add Participant</button>
+    <button type="submit" class="btn btn-primary">Subscribe</button>
+</form>
+
             </div>
         </div>
-    </section>
-    <!-- Scripts -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Cancel Inscription</h5>
+                <form action="cancel_inscription.php" method="POST">
+                    <div class="mb-3">
+                        <label for="inscription_id" class="form-label">Enter Inscription ID:</label>
+                        <input type="text" class="form-control" id="inscription_id" name="inscription_id" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Cancel Inscription</button>
+                </form>
+    </div>
+</div>
+</div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var addButton = document.querySelector('.add-participant');
+    var additionalParticipants = document.querySelector('.additional-participants');
+
+    var count = 1; // Start with 1 to match the initial fields
+
+    addButton.addEventListener('click', function() {
+        count++;
+        var div = document.createElement('div');
+        div.innerHTML = `
+            <div class="mb-3">
+                <label for="username${count}" class="form-label">Username ${count}</label>
+                <input type="text" class="form-control" id="username${count}" name="username[]">
+                <label for="email${count}" class="form-label">Email ${count}</label>
+                <input type="email" class="form-control" id="email${count}" name="email[]">
+            </div>
+        `;
+        additionalParticipants.appendChild(div);
+    });
+});
+
+</script>
+
     <!-- Bootstrap core JavaScript -->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+// Add a JavaScript function to check the username input value
+
+function validateUsername(input) {
+    var username = input.value;
+    var errorDiv = document.getElementById('usernameError');
+    if (/\d/.test(username)) {
+        // Username contains numbers
+        errorDiv.style.display = 'block';
+        input.classList.add('is-invalid');
+    } else {
+        // Username is valid
+        errorDiv.style.display = 'none';
+        input.classList.remove('is-invalid');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+        var subscribeForm = document.querySelector('form[action="subscribe.php"]');
+        subscribeForm.addEventListener('submit', function(event) {
+            var usernames = document.querySelectorAll('input[name="username[]"]');
+            var emails = document.querySelectorAll('input[name="email[]"]');
+            var isValid = true;
+
+            // Validate usernames
+            usernames.forEach(function(usernameInput) {
+                if (!/^[a-zA-Z]+$/.test(usernameInput.value)) {
+                    isValid = false;
+                    alert("Username should only contain alphabetic characters.");
+                }
+            });
+
+            // Validate emails
+            emails.forEach(function(emailInput) {
+                if (!emailInput.checkValidity()) {
+                    isValid = false;
+                    alert("Please enter a valid email address.");
+                }
+            });
+
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission if inputs are invalid
+            }
+        });
+    });
+
+</script>
 </body>
 </html>
