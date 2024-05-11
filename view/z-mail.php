@@ -1,4 +1,8 @@
+
+
 <?php
+ob_start();
+
 // Start the session
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -10,8 +14,6 @@ use PHPMailer\PHPMailer\Exception;
 require '../PHPMailer/src/Exception.php';
 require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';
-
- 
 
 // Fetch data from NASA API
 $api_key = '8sSd7xP09D5QgPUnSyigBgtlHyw8xZNcJi01zBCq';
@@ -57,14 +59,16 @@ if (isset($_POST['destination'])) {
     try {
         $mail->send();
         echo 'Message has been sent to ' . $destination;
-      
+
+        // Redirect the user to space.php
+        header('Location: space.php'); // Add this line
+        exit; // Terminate script execution
     } catch (Exception $e) {
         echo "Message could not be sent to $destination. Mailer Error: {$mail->ErrorInfo}";
     }
 } else {
     echo 'Destination not provided.';
-     
 }
- 
-
+ob_end_flush();
 ?>
+
