@@ -18,6 +18,8 @@ if(filter_var($message, FILTER_VALIDATE_URL)) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="shortcut icon" type="image/x-icon" href="../logo.ico" />
+     
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -191,8 +193,9 @@ if(filter_var($message, FILTER_VALIDATE_URL)) {
                     <input type="password" name="password" placeholder="Enter password" class="box">
                     <input type="submit" name="submit" value="Login Now" class="btn">
                     <p>Don't have an account? <a href="../view/register.php">Register now</a></p>
+                    <p>Forgot password? <a href="../view/forgot.php">Reset password</a></p>
 
-                    <div class="g-recaptcha" data-sitekey="6LcPHMYpAAAAAJTOLTfO5jFLLyVEYN22V8zFXe59"></div>
+                    <div class="g-recaptcha" data-sitekey="6LcPHMYpAAAAAJTOLTfO5jFLLyVEYN22V8zFXe59"></div> 
         </form>
     </div>
    

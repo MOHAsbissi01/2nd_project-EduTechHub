@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once '../model/UserModelLogin.php';
 class LoginController {
     public function login() {
@@ -24,21 +25,22 @@ class LoginController {
             if($loginResult === true){
                 
                 $userId = UserModelLogin::getUserId($email);
+                $_SESSION['email'] = $email;
         
                 // Redirect 
                 switch($userId) {
                     case 1:
-                        header('location: ../index-.php?email=' . urlencode($email));
+                        header('location: ../view/index-.php?email=' . urlencode($email));
                         exit();
                     case 2:
-                        header('location: ../index-2.php?email=' . urlencode($email));
+                        header('location: ../view/index-2.php?email=' . urlencode($email));
                         exit();
                     case 3:
-                        header('location: ../index-3.php?email=' . urlencode($email));
+                        header('location: ../view/index-3.php?email=' . urlencode($email));
                         exit();
                     default:
                          
-                        header('location: ../index.php?email=' . urlencode($email));
+                        header('location: ../view/index.php?email=' . urlencode($email));
                         exit();
                 }
             } else {
