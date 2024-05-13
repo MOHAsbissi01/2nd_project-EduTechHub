@@ -162,7 +162,7 @@ public function getTestDetails($testId) {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    public function evaluateTest($testId, $username, $responses) {
+    public function evaluateTest($testId, $email, $responses) {
         $totalQuestions = count($responses);
         $correctAnswers = 0;
     
@@ -178,8 +178,8 @@ public function getTestDetails($testId) {
         $score = ($totalQuestions > 0) ? "$correctAnswers / $totalQuestions" : "0 / 0";
     
         // Insère les résultats dans la table test_results
-        $stmt = $this->db->prepare("INSERT INTO test_results (test_id, username, score) VALUES (?, ?, ?)");
-        $stmt->execute([$testId, $username, $score]);
+        $stmt = $this->db->prepare("INSERT INTO test_results (test_id, score, email) VALUES (?, ?, ?)");
+        $stmt->execute([$testId, $score, $email]);
     
         return $score;
     }
@@ -267,6 +267,43 @@ public function fetchTestsByCoursId($coursId) {
         throw $e;
     }
 }
+
+public function getUserDetailsByEmail($email) {
+    // Préparez la requête SQL pour récupérer les détails de l'utilisateur à partir de l'email
+    $sql = "SELECT * FROM users WHERE email = :email";
+
+    // Préparez et exécutez la requête SQL à l'aide de PDO
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute(['email' => $email]);
+
+    // Récupérez les résultats de la requête sous forme de tableau associatif
+    $userDetails = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Retournez les détails de l'utilisateur
+    return $userDetails;
+}
+
+public function checkEmailExists($email) {
+    try {
+        // Préparer la requête SQL pour vérifier l'existence de l'email dans la base de données
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        
+        // Récupérer le résultat de la requête
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // Renvoyer true si l'email existe, sinon false
+        return $result['count'] > 0;
+    } catch (PDOException $e) {
+        // Gérer l'erreur PDO
+        // Vous pouvez logger l'erreur ou la renvoyer pour une gestion d'erreur ultérieure
+        throw $e;
+    }
+}
+
+
+
+
 }
 
 ?>

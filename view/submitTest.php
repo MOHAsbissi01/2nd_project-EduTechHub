@@ -3,13 +3,13 @@ require_once '../Controller/TestController.php';
 $controller = new TestController();
 
 // Vérifier si l'ID du test et le nom d'utilisateur sont passés
-if (empty($_POST['test_id']) || empty($_POST['username'])) {
+if (empty($_POST['test_id']) || empty($_POST['email'])) {
     echo "Informations nécessaires pour démarrer le test manquantes.";
     exit;
 }
 
 $testId = $_POST['test_id'];
-$username = $_POST['username'];
+$email = $_POST['email'];
 $testDetails = $controller->getTestDetails($testId);
 $questions = $controller->getQuestionsForTest($testId);
 
@@ -64,12 +64,12 @@ if (!$testDetails) {
         <div class="row">
             <div class="col-lg-12">
                 <?php
-                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['response'], $_POST['test_id'], $_POST['username'])) {
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['response'], $_POST['test_id'], $_POST['email'])) {
                     $responses = $_POST['response'];
                     $testId = $_POST['test_id'];
-                    $username = $_POST['username'];
-                    $score = $controller->evaluateTest($testId, $username, $responses);
-                    echo "<h2>Merci, $username. Votre score est : $score</h2>";
+                    $email = $_POST['email'];
+                    $score = $controller->evaluateTest($testId, $email, $responses);
+                    echo "<h2>Merci, $email. Votre score est : $score</h2>";
                 } else {
                     echo "<h2>Aucune réponse soumise.</h2>";
                 }

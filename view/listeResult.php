@@ -71,7 +71,7 @@
                 <th>ID</th>
                 <th>Quiz Title</th>
                 <th>Cours Associé</th>
-                <th>Nom d'utilisateur</th>
+                <th>Email de l'utilisateur</th>
                 <th>Score</th>
                 <th>Total Questions</th>
                 <th>Date</th>
@@ -112,7 +112,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         <td><?= htmlspecialchars($row['id']) ?></td>
         <td><?= htmlspecialchars($quizTitle) ?></td>
         <td><?= htmlspecialchars($coursTitle) ?></td>
-        <td><?= htmlspecialchars($row['username']) ?></td>
+        <td><?= htmlspecialchars($row['email']) ?></td>
         <td><?= htmlspecialchars($row['score']) ?></td>
         <td><?= htmlspecialchars($totalQuestions) ?></td>
         <td><?= htmlspecialchars($row['created_at']) ?></td>

@@ -7,14 +7,16 @@ class TestModel {
     private $utilisateur;
     private $note_obtenue;
     private $questions;
+    private $email;
     private $cours; // Ajoutez cette propriété pour stocker les questions du test
 
-    public function __construct($id_test, $quiz_title, $utilisateur, $note_obtenue, $questions, $cours = []) {
+    public function __construct($id_test, $quiz_title, $utilisateur, $note_obtenue, $questions, $cours, $email = []) {
         $this->id_test = $id_test;
         $this->quiz_title = $quiz_title;
         $this->utilisateur = $utilisateur;
         $this->note_obtenue = $note_obtenue;
         $this->questions = $questions; // Initialisez la liste des questions
+        $this->email = $email;
         $this->cours = $cours; // Initialisez la liste des cours
 
     }
@@ -63,6 +65,11 @@ class TestModel {
 public function getCours2() {
     return $this->cours;
 }
+
+public function getEmail() {
+    return $this->email;
+}
+ 
     
 }
 ?>

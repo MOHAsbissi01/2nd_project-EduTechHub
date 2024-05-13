@@ -2,14 +2,15 @@
 require_once '../Controller/TestController.php';
 $controller = new TestController();
 
-// Vérifier si l'ID du test et le nom d'utilisateur sont passés
-if (empty($_POST['test_id']) || empty($_POST['username'])) {
+// Vérifier si l'ID du test et l'email sont passés
+if (empty($_POST['test_id']) || empty($_POST['email'])) {
     echo "Informations nécessaires pour démarrer le test manquantes.";
     exit;
 }
 
+
 $testId = $_POST['test_id'];
-$username = $_POST['username'];
+$email = $_POST['email'];
 $testDetails = $controller->getTestDetails($testId);
 $questions = $controller->getQuestionsForTest($testId);
 
@@ -67,7 +68,7 @@ if (!$testDetails) {
 
         <form id="testForm" action="submitTest.php" method="POST">
     <input type="hidden" name="test_id" value="<?= htmlspecialchars($testId) ?>">
-    <input type="hidden" name="username" value="<?= htmlspecialchars($username) ?>">
+    <input type="hidden" name="email" value="<?= htmlspecialchars($email) ?>">
     <?php foreach ($questions as $question): ?>
     <div class="question">
         <p>Question: <?= isset($question['question_text']) ? htmlspecialchars($question['question_text']) : 'Question manquante' ?></p>
