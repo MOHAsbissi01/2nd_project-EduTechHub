@@ -127,7 +127,7 @@ if (isset($_GET['test_id'])) {
         <?php if (!empty($allCours)) { ?>
             <?php foreach ($allCours as $cours) { ?>
                 <div>
-                    <input type='checkbox' name='cours[]' value='<?= $cours['id_cours'] ?>' <?= in_array($cours['id_cours'], $test->getCours()) ? 'checked' : '' ?>>
+                    <input type='checkbox' name='cours[]' value='<?= $cours['id_cours'] ?>' <?= in_array($cours['id_cours'], $test->getCours2()) ? 'checked' : '' ?>>
                     <?= htmlspecialchars($cours['titre']) ?>
                 </div>
             <?php } ?>

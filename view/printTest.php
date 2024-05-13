@@ -34,7 +34,7 @@ $pdf->Cell(0, 10, utf8_decode('Détails du Test'), 0, 1, 'C', true);
 $pdf->SetFont('Arial', 'B', 14);
 $pdf->Cell(0, 10, utf8_decode('Titre du Test : ') . utf8_decode($test->getQuizTitle()), 0, 1);
 $pdf->SetFont('Arial', '', 12);
-$pdf->Cell(0, 10, utf8_decode('Cours Associés : ') . utf8_decode(implode(', ', $test->getCours())), 0, 1);
+$pdf->Cell(0, 10, utf8_decode('Cours Associés : ') . utf8_decode(implode(', ', $test->getCours2())), 0, 1);
 
 // Affichage des questions
 $pdf->SetFont('Arial', 'I', 14);

@@ -1,8 +1,30 @@
+<?php
+require_once '../Controller/TestController.php';
+$controller = new TestController();
+
+// Vérifier si l'ID du test et le nom d'utilisateur sont passés
+if (empty($_POST['test_id']) || empty($_POST['username'])) {
+    echo "Informations nécessaires pour démarrer le test manquantes.";
+    exit;
+}
+
+$testId = $_POST['test_id'];
+$username = $_POST['username'];
+$testDetails = $controller->getTestDetails($testId);
+$questions = $controller->getQuestionsForTest($testId);
+
+if (!$testDetails) {
+    echo "Le test demandé n'existe pas.";
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Resultats du Test - EduTechHub</title>
+    <title>Démarrer le Test - EduTechHub</title>
+    <!-- Assurez-vous que les chemins vers vos fichiers CSS sont corrects -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-edu-meeting.css">
@@ -15,14 +37,20 @@
             <div class="row">
                 <div class="col-12">
                     <nav class="main-nav">
-                        <a href="index.html" class="logo">EduTechHub</a>
+                        <!-- Logo -->
+                        <a href="index.html" class="logo">
+                            EduTechHub
+                        </a>
+                        <!-- Nav -->
                         <ul class="nav">
                             <li><a href="index.html">Home</a></li>
                             <li><a href="meetings.html">Meetings</a></li>
-                            <li><a href="test.php" class="active">Test</a></li>
+                            <li><a href="index.php" class="active">Test</a></li>
                             <li><a href="contact.html">Contact Us</a></li>
                         </ul>
-                        <a class='menu-trigger'><span>Menu</span></a>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
                     </nav>
                 </div>
             </div>
@@ -44,12 +72,13 @@
                     $score = $controller->evaluateTest($testId, $username, $responses);
 
                     echo "<h2>Merci, $username. Votre score est : $score</h2>";
+                    // Enregistrer le score dans la base de données si nécessaire
                 } else {
                     echo "<h2>Aucune réponse soumise.</h2>";
                 }
                 ?>
                 <div>
-                    <a href="index.html" class="btn btn-primary mt-3">Retour à l'accueil</a>
+                    <a href="../2nd_project-EduTechHub/index.php" class="btn btn-primary mt-3">Retour à l'accueil</a>
                 </div>
             </div>
         </div>

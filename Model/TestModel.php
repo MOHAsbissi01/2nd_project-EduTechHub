@@ -56,10 +56,13 @@ class TestModel {
         }, $this->questions);
     }
     
-    public function getCours() {
-        return $this->cours;
-    }
-    
+   public function getCours() {
+    return is_array($this->cours) ? implode(', ', $this->cours) : $this->cours;
+}
+
+public function getCours2() {
+    return $this->cours;
+}
     
 }
 ?>

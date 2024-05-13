@@ -56,7 +56,7 @@ $tests = $controller->getAllTests();
         <thead>
             <tr>
                 <th>Titre du Test</th>
-                <th>Document associé du Test</th>
+                <th>Document associé au Test</th>
                 <th>Questions</th>
                 <th>Options</th>
                 <th>Action</th>
