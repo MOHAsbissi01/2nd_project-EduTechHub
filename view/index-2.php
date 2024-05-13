@@ -12,14 +12,14 @@
     <title>Teacher </title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-edu-meeting.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/lightbox.css">
+    <link rel="stylesheet" href="../assets/css/fontawesome.css">
+    <link rel="stylesheet" href="../assets/css/templatemo-edu-meeting.css">
+    <link rel="stylesheet" href="../assets/css/owl.css">
+    <link rel="stylesheet" href="../assets/css/lightbox.css">
  
 
 
@@ -80,6 +80,17 @@
                       </a>
                       <!-- ***** Menu End ***** -->
                   </nav>
+     <!--
+                  <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <img class="rounded-circle" src="../uploaded_img/11.png" alt="" style="width: 40px; height: 40px;">
+                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0">Jhon Doe</h6>
+                    </div>
+                  </div>
+-->
               </div>
           </div>
       </div>
@@ -89,7 +100,7 @@
   <!-- ***** Main Banner Area Start ***** -->
   <section class="section main-banner" id="top" data-section="section1">
       <video autoplay muted loop id="bg-video">
-          <source src="assets/images/course-video.mp4" type="video/mp4" />
+          <source src="../assets/images/course-video.mp4" type="video/mp4" />
       </video>
 
       <div class="video-overlay header-text">
@@ -126,7 +137,7 @@
           
             <div class="item">
               <div class="icon">
-                <img src="assets/images/service-icon-01.png" alt="">
+                <img src="../assets/images/service-icon-01.png" alt="">
               </div>
               <div class="down-content">
                 <h4>Best Education</h4>
@@ -136,7 +147,7 @@
             
             <div class="item">
               <div class="icon">
-                <img src="assets/images/service-icon-02.png" alt="">
+                <img src="../assets/images/service-icon-02.png" alt="">
               </div>
               <div class="down-content">
                 <h4>Best Teachers</h4>
@@ -146,7 +157,7 @@
             
             <div class="item">
               <div class="icon">
-                <img src="assets/images/service-icon-03.png" alt="">
+                <img src="../assets/images/service-icon-03.png" alt="">
               </div>
               <div class="down-content">
                 <h4>Best Students</h4>
@@ -156,7 +167,7 @@
             
             <div class="item">
               <div class="icon">
-                <img src="assets/images/service-icon-02.png" alt="">
+                <img src="../assets/images/service-icon-02.png" alt="">
               </div>
               <div class="down-content">
                 <h4>Online Meeting</h4>
@@ -166,7 +177,7 @@
             
             <div class="item">
               <div class="icon">
-                <img src="assets/images/service-icon-03.png" alt="">
+                <img src="../assets/images/service-icon-03.png" alt="">
               </div>
               <div class="down-content">
                 <h4>Best Networking</h4>
@@ -213,7 +224,7 @@
                   <div class="price">
                     <span>TND 22.00</span>
                   </div>
-                  <a href="meeting-details.html"><img src="assets/images/meeting-01.jpg" alt="New Lecturer Meeting"></a>
+                  <a href="meeting-details.html"><img src="../assets/images/meeting-01.jpg" alt="New Lecturer Meeting"></a>
                 </div>
                 <div class="down-content">
                   <div class="date">
@@ -230,7 +241,7 @@
                   <div class="price">
                     <span>TND 36.00</span>
                   </div>
-                  <a href="meeting-details.html"><img src="assets/images/meeting-02.jpg" alt="Online Teaching"></a>
+                  <a href="meeting-details.html"><img src="../assets/images/meeting-02.jpg" alt="Online Teaching"></a>
                 </div>
                 <div class="down-content">
                   <div class="date">
@@ -247,7 +258,7 @@
                   <div class="price">
                     <span>TND 14.00</span>
                   </div>
-                  <a href="meeting-details.html"><img src="assets/images/meeting-03.jpg" alt="Higher Education"></a>
+                  <a href="meeting-details.html"><img src="../assets/images/meeting-03.jpg" alt="Higher Education"></a>
                 </div>
                 <div class="down-content">
                   <div class="date">
@@ -264,7 +275,7 @@
                   <div class="price">
                     <span>TND 48.00</span>
                   </div>
-                  <a href="meeting-details.html"><img src="assets/images/meeting-04.jpg" alt="Student Training"></a>
+                  <a href="meeting-details.html"><img src="../assets/images/meeting-04.jpg" alt="Student Training"></a>
                 </div>
                 <div class="down-content">
                   <div class="date">
@@ -327,7 +338,7 @@
         </div> 
         <div class="col-lg-6 align-self-center">
           <div class="video">
-            <a href="https://www.youtube.com/watch?v=HndV87XpkWg" target="_blank"><img src="assets/images/play-icon.png" alt=""></a>
+            <a href="https://www.youtube.com/watch?v=HndV87XpkWg" target="_blank"><img src="../assets/images/play-icon.png" alt=""></a>
           </div>
         </div>
       </div>
@@ -377,16 +388,16 @@
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/js/isotope.min.js"></script>
-    <script src="assets/js/owl-carousel.js"></script>
-    <script src="assets/js/lightbox.js"></script>
-    <script src="assets/js/tabs.js"></script>
-    <script src="assets/js/video.js"></script>
-    <script src="assets/js/slick-slider.js"></script>
-    <script src="assets/js/custom.js"></script>
+    <script src="../assets/js/isotope.min.js"></script>
+    <script src="../assets/js/owl-carousel.js"></script>
+    <script src="../assets/js/lightbox.js"></script>
+    <script src="../assets/js/tabs.js"></script>
+    <script src="../assets/js/video.js"></script>
+    <script src="../assets/js/slick-slider.js"></script>
+    <script src="../assets/js/custom.js"></script>
     <script>
         //according to loftblog tut
         $('.nav li:first').addClass('active');

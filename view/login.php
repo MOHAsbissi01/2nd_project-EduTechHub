@@ -160,17 +160,17 @@ if(filter_var($message, FILTER_VALIDATE_URL)) {
                     var captchaResponse = grecaptcha.getResponse();
 
                     if (email == "" || password == "") {
-                        alert("Veuillez remplir tous les champs requis!");
+                        
                         event.preventDefault();
                         return false;
                     }
                     if (email.indexOf("@") == -1) {
-                        alert("L'email doit contenir un '@'!");
+                        
                         event.preventDefault();
                         return false;
                     }
                     if (captchaResponse.length == 0) {
-                        alert("Veuillez cocher la case reCAPTCHA!");
+                        
                         event.preventDefault();
                         return false;
                     }
