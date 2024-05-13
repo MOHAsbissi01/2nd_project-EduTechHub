@@ -2,90 +2,6 @@
 <html>
 <head>
     <title>Modifier un cours</title>
-    
-</head>
-<body>
-    <header><img src="..\assets\logo.png" alt="Logo" width="170" height="170"></header>
-
-    <?php
-        require_once('../controller/coursC.php');
-
-        // Vérifier si le formulaire a été soumis avec l'ID
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-            $id_cours = $_POST['id'];
-
-            $courscontroller = new coursC();
-            $coursDetails = $courscontroller->showcours($id_cours);
-
-            // Vérifier si le cours existe
-            if ($coursDetails) {
-                // Si le formulaire a été soumis et que l'ID existe, rediriger vers la page d'update
-                header("Location: updatecours.php?id=$id_cours");
-                exit();
-            } else {
-                // Si le cours n'existe pas, afficher un message
-                echo "<p>Le cours avec l'ID $id_cours n'existe pas.</p>";
-            }
-        }
-    ?>
-
-    <h1>Modifier un cours</h1>
-
-<?php
-    require_once('../controller/coursC.php');
-
-    if (isset($_GET['id'])) {
-        $id_cours = $_GET['id'];
-
-        $courscontroller = new coursC();
-        $coursDetails = $courscontroller->showcours($id_cours);
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $updatedTitre = $_POST['titre'];
-            $updatedProprietaire = $_POST['proprietaire'];
-            $updatedPrix = $_POST['prix'];
-            $updatedDescription = $_POST['description'];
-            $updatedImage = $_POST['image'];
-            $updatedCategory = $_POST['category'];
-
-            // Vérifie si le fichier PDF a été correctement téléchargé
-            if ($_FILES['pdf']['error'] === UPLOAD_ERR_OK) {
-                // Chemin du dossier de téléchargement des PDF
-                $uploadDirectory = "../uploads/";
-                // Chemin complet du fichier PDF téléchargé
-                $pdfPath = $uploadDirectory . basename($_FILES['pdf']['name']);
-                // Déplace le fichier PDF téléchargé vers le dossier de destination
-                if (move_uploaded_file($_FILES['pdf']['tmp_name'], $pdfPath)) {
-                    $updatedPdf = $pdfPath;
-                    $courscontroller = new coursC();
-                    $updateResult = $courscontroller->updateCours(
-                        $id_cours,
-                        $updatedTitre,
-                        $updatedProprietaire,
-                        $updatedPrix,
-                        $updatedDescription,
-                        $updatedImage,
-                        $updatedCategory,
-                        $updatedPdf
-                    );
-                    echo "<p>$updateResult</p>";
-                } else {
-                    echo "Erreur lors du téléchargement du fichier PDF.";
-                }
-            } else {
-                echo "Erreur lors du téléchargement du fichier PDF.";
-            }
-        }
-    } else {
-        echo "cours ID not specified.";
-        exit();
-    }
-?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Update cours Information</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -152,39 +68,133 @@
         button:hover {
             background-color: #007BFF;
         }
-        
+
+        .error {
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        .success {
+            color: green;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
-    <h1>Update cours Information</h1>
-    <header><img src="..\assets\logo.png" alt="Logo" width="150" height="150"></header>
+    <header><img src="..\assets\logo.png" alt="Logo" width="170" height="170"></header>
+
+    <?php
+        require_once('../controller/coursC.php');
+
+        // Vérifier si le formulaire a été soumis avec l'ID
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+            $id_cours = $_POST['id'];
+
+            $courscontroller = new coursC();
+            $coursDetails = $courscontroller->showcours($id_cours);
+
+            // Vérifier si le cours existe
+            if ($coursDetails) {
+                // Si le formulaire a été soumis et que l'ID existe, rediriger vers la page d'update
+                header("Location: updatecours.php?id=$id_cours");
+                exit();
+            } else {
+                // Si le cours n'existe pas, afficher un message
+                echo "<p class='error'>Le cours avec l'ID $id_cours n'existe pas.</p>";
+            }
+        }
+    ?>
+
+    <h1>Modifier un cours</h1>
+
+<?php
+    require_once('../controller/coursC.php');
+
+    if (isset($_GET['id'])) {
+        $id_cours = $_GET['id'];
+
+        $courscontroller = new coursC();
+        $coursDetails = $courscontroller->showcours($id_cours);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $updatedTitre = $_POST['titre'];
+            $updatedProprietaire = $_POST['proprietaire'];
+            $updatedPrix = $_POST['prix'];
+            $updatedDescription = $_POST['description'];
+            $updatedImage = $_POST['image'];
+            $updatedCategory = $_POST['category'];
+
+            // Vérifie si le titre a au moins 3 caractères
+            if (strlen($updatedTitre) < 3) {
+                echo "<p class='error'>Le titre doit avoir au moins 3 caractères.</p>";
+            } else {
+                // Contrôle de saisie pour les autres champs
+                if (empty($updatedProprietaire)) {
+                    echo "<p class='error'>Le propriétaire ne peut pas être vide.</p>";
+                } elseif (!is_numeric($updatedPrix) || $updatedPrix < 0) {
+                    echo "<p class='error'>Le prix doit être un nombre positif.</p>";
+                } elseif (empty($updatedDescription)) {
+                    echo "<p class='error'>La description ne peut pas être vide.</p>";
+                } elseif (empty($updatedImage)) {
+                    echo "<p class='error'>Le lien de l'image ne peut pas être vide.</p>";
+                } else {
+                    // Vérifie si le fichier PDF a été correctement téléchargé
+                    if ($_FILES['pdf']['error'] === UPLOAD_ERR_OK) {
+                        // Chemin du dossier de téléchargement des PDF
+                        $uploadDirectory = "../uploads/";
+                        // Chemin complet du fichier PDF téléchargé
+                        $pdfPath = $uploadDirectory . basename($_FILES['pdf']['name']);
+                        // Déplace le fichier PDF téléchargé vers le dossier de destination
+                        if (move_uploaded_file($_FILES['pdf']['tmp_name'], $pdfPath)) {
+                            $updatedPdf = $pdfPath;
+                            $courscontroller = new coursC();
+                            $updateResult = $courscontroller->updateCours(
+                                $id_cours,
+                                $updatedTitre,
+                                $updatedProprietaire,
+                                $updatedPrix,
+                                $updatedDescription,
+                                $updatedImage,
+                                $updatedCategory,
+                                $updatedPdf
+                            );
+                            echo "<p class='success'>$updateResult</p>";
+                        } else {
+                            echo "<p class='error'>Erreur lors du téléchargement du fichier PDF.</p>";
+                        }
+                    } else {
+                        echo "<p class='error'>Erreur lors du téléchargement du fichier PDF.</p>";
+                    }
+                }
+            }
+        }
+    } else {
+        echo "<p class='error'>cours ID not specified.</p>";
+        exit();
+    }
+?>
 
     <form action="" method="POST" enctype="multipart/form-data">
         <label for="titre">titre:</label>
-        <input type="text" id="titre" name="titre" value="<?php echo htmlspecialchars($coursDetails['titre']); ?>" required><br><br>
-
+        <input type="text" id="titre" name="titre" value="<?php echo htmlspecialchars($coursDetails['titre']); ?>" ><br>
         <label for="proprietaire">proprietaire:</label>
-        <input type="text" id="proprietaire" name="proprietaire" value="<?php echo htmlspecialchars($coursDetails['proprietaire']); ?>"><br><br>
-
+        <input type="text" id="proprietaire" name="proprietaire" value="<?php echo htmlspecialchars($coursDetails['proprietaire']); ?>"><br>
         <label for="prix">prix:</label>
-        <input type="text" id="prix" name="prix" value="<?php echo htmlspecialchars($coursDetails['prix']); ?>"><br><br>
-
+        <input type="text" id="prix" name="prix" value="<?php echo htmlspecialchars($coursDetails['prix']); ?>"><br>
         <label for="description">description:</label>
-        <input type="text" id="description" name="description" value="<?php echo htmlspecialchars($coursDetails['description']); ?>"><br><br>
-
+        <input type="text" id="description" name="description" value="<?php echo htmlspecialchars($coursDetails['description']); ?>"><br>
         <label for="image">image:</label>
-        <input type="text" id="image" name="image" value="<?php echo htmlspecialchars($coursDetails['image']); ?>"><br><br>
-
+        <input type="text" id="image" name="image" value="<?php echo htmlspecialchars($coursDetails['image']); ?>"><br>
         <label for="category">Category:</label>
-        <select id="category" name="category" required>
+        <select id="category" name="category">
             <option value="1" <?php if ($coursDetails['category'] === '1') echo 'selected'; ?>>Cours</option>
             <option value="2" <?php if ($coursDetails['category'] === '2') echo 'selected'; ?>>Livre</option>
             <option value="3" <?php if ($coursDetails['category'] === '3') echo 'selected'; ?>>Exercice</option>
-        </select>
-
+        </select><br>
         <label for="pdf">pdf:</label>
         <input type="file" id="pdf" name="pdf"><br><br>
-
         <input type="submit" name="submit" value="update cours">
     </form>
     <form method="get" action="../2nd_project-EduTechHub/listeD.php">

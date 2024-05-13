@@ -30,11 +30,11 @@ if (isset($_GET['id'])) {
         $correctOption = $questionDetails['correct_option'];
     } else {
         // Si la question avec l'ID spécifié n'existe pas, afficher un message
-        echo "<p>La question avec l'ID $id_question n'existe pas.</p>";
+        echo "<p class='error'>La question avec l'ID $id_question n'existe pas.</p>";
     }
 } else {
     // Si aucun ID de question n'est spécifié dans l'URL, afficher un message
-    echo "ID de la question non spécifié.";
+    echo "<p class='error'>ID de la question non spécifié.</p>";
     exit();
 }
 
@@ -51,25 +51,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $updatedoption3 = $_POST['option3'];
     $updatedcorrectOption = $_POST['correct_option'];
 
-    // Mettre à jour la question dans la base de données
-    $questioncontroller = new QuestionController();
-    $updateResult = $questioncontroller->updateQuestion(
-        $id_question,
-        $updatedquizTitle,
-        $updatedquestionText,
-        $updatedoption1,
-        $updatedoption2,
-        $updatedoption3,
-        $updatedcorrectOption
-    );
+    // Contrôle de saisie pour le titre du quiz et le texte de la question
+    $errors = [];
+    if (strlen($updatedquizTitle) < 3) {
+        $errors[] = "Le titre du quiz doit avoir au moins 3 caractères.";
+    }
+    if (strlen($updatedquestionText) < 5) {
+        $errors[] = "Le texte de la question doit avoir au moins 5 caractères.";
+    }
+    // Contrôle de saisie pour les options
+    if (strlen($updatedoption1) === 0) {
+        $errors[] = "Option 1 est requis.";
+    }
+    if (strlen($updatedoption2) === 0) {
+        $errors[] = "Option 2 est requis.";
+    }
+    if (strlen($updatedoption3) === 0) {
+        $errors[] = "Option 3 est requis.";
+    }
+    if (strlen($updatedcorrectOption) === 0) {
+        $errors[] = "Option Correcte est requis.";
+    }
 
-    // Vérifier si la mise à jour a réussi
-    if ($updateResult === "Quizz details updated successfully") {
-        // Si oui, définir le message de succès
-        $updateMessage = "<p>Mise à jour réussie!</p>";
+    // Si aucune erreur, procéder à la mise à jour
+    if (empty($errors)) {
+        // Mettre à jour la question dans la base de données
+        $questioncontroller = new QuestionController();
+        $updateResult = $questioncontroller->updateQuestion(
+            $id_question,
+            $updatedquizTitle,
+            $updatedquestionText,
+            $updatedoption1,
+            $updatedoption2,
+            $updatedoption3,
+            $updatedcorrectOption
+        );
+
+        // Vérifier si la mise à jour a réussi
+        if ($updateResult === "Quizz details updated successfully") {
+            // Si oui, définir le message de succès
+            $updateMessage = "<p class='success'>Mise à jour réussie!</p>";
+        } else {
+            // Sinon, afficher un message d'erreur
+            $updateMessage = "<p class='error'>Une erreur s'est produite lors de la mise à jour: $updateResult</p>";
+        }
     } else {
-        // Sinon, afficher un message d'erreur
-        $updateMessage = "<p>Une erreur s'est produite lors de la mise à jour: $updateResult</p>";
+        // Si des erreurs sont présentes, afficher les messages d'erreur
+        $updateMessage = "<ul class='error'>";
+        foreach ($errors as $error) {
+            $updateMessage .= "<li>$error</li>";
+        }
+        $updateMessage .= "</ul>";
     }
 }
 ?>
@@ -144,6 +176,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color: #007BFF;
         }
         
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error ul {
+            list-style-type: none;
+            padding: 0;
+        }
     </style>
 </head>
 <body>
@@ -154,22 +198,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <form action="" method="POST">
         <label for="quiz_title">Titre du Quiz:</label>
-        <input type="text" id="quiz_title" name="quiz_title" value="<?php echo htmlspecialchars($quizTitle); ?>" required><br>
+        <input type="text" id="quiz_title" name="quiz_title" value="<?php echo htmlspecialchars($quizTitle); ?>"><br>
 
         <label for="question_text">Texte de la Question:</label>
-        <input type="text" id="question_text" name="question_text" value="<?php echo htmlspecialchars($questionText); ?>" required><br>
+        <input type="text" id="question_text" name="question_text" value="<?php echo htmlspecialchars($questionText); ?>"><br>
 
         <label for="option1">Option 1:</label>
-        <input type="text" id="option1" name="option1" value="<?php echo htmlspecialchars($option1); ?>" required><br>
+        <input type="text" id="option1" name="option1" value="<?php echo htmlspecialchars($option1); ?>"><br>
 
         <label for="option2">Option 2:</label>
-        <input type="text" id="option2" name="option2" value="<?php echo htmlspecialchars($option2); ?>" required><br>
+        <input type="text" id="option2" name="option2" value="<?php echo htmlspecialchars($option2); ?>"><br>
 
         <label for="option3">Option 3:</label>
-        <input type="text" id="option3" name="option3" value="<?php echo htmlspecialchars($option3); ?>" required><br>
+        <input type="text" id="option3" name="option3" value="<?php echo htmlspecialchars($option3); ?>"><br>
 
         <label for="correct_option">Option Correcte:</label>
-        <input type="text" id="correct_option" name="correct_option" value="<?php echo htmlspecialchars($correctOption); ?>" required><br>
+        <input type="text" id="correct_option" name="correct_option" value="<?php echo htmlspecialchars($correctOption); ?>"><br>
 
         <input type="submit" value="Mettre à jour la question">
     </form>

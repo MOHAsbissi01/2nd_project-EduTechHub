@@ -22,94 +22,97 @@ $allQuestions = $controller->getAllQuestions();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-<header>
-    <img src="../assets/logo.png" alt="Logo" width="150" height="150">
-</header>
 <head>
     <meta charset="UTF-8">
     <title>Créer un Test</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #dedede;
+        }
+
+        header {
+            background-color: #fffcfc;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        header img {
+            background-color: transparent;
+            border-radius: 50%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #edf0f5;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #4a90e2;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #357ebd;
+            transform: scale(1.05);
+        }
+
+        .error_message {
+            color: red;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .success_message {
+            color: green;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
-<style>
-    body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #dedede; /* Couleur de fond légèrement plus claire */
-}
-
-header {
-    background-color: #fffcfc;
-    padding: 20px;
-    text-align: center;
-    width: 100%;
-    position: relative;
-}
-header::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000000; /* Black background color */
-    opacity: 0.5; /* Adjust opacity as needed */
-    z-index: -1;
-}
-header img {
-    background-color: transparent;
-    border-radius: 50%;
-    z-index: 1;
-}
-
-h1 {
-    color: #333;
-    margin-bottom: 20px;
-}
-
-form {
-    width: 90%; /* Largeur du formulaire réduite */
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #edf0f5; /* Fond blanc */
-    border-radius: 8px; /* Coins arrondis */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
-}
-
-label {
-    display: block;
-    margin-bottom: 10px;
-    color: #333;
-    font-size: 16px;
-}
-
-input[type="submit"] {
-    background-color: #4a90e2; /* Bleu vif */
-    color: #fff;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 30px; /* Coins arrondis */
-    cursor: pointer;
-    margin: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-input[type="submit"]:hover {
-    background-color: #357ebd; /* Bleu légèrement plus foncé au survol */
-    transform: scale(1.05); /* Légère animation de zoom au survol */
-}
-</style>
 <body>
+    <header>
+        <img src="../assets/logo.png" alt="Logo" width="150" height="150">
+    </header>
     <h1>Créer un Test</h1>
-    <form method="POST" action="">
+    <?php if (!empty($message)): ?>
+        <div class="success_message"><?= $message ?></div>
+    <?php endif; ?>
+    <form id="testForm" method="POST">
         <label for="quiz_title">Titre du Test:</label>
-        <input type="text" id="quiz_title" name="quiz_title"><br>
+        <input type="text" id="quiz_title" name="quiz_title">
+        <div id="error_quiz_title" class="error_message"></div>
 
         <label>Sélectionner les questions:</label>
         <?php foreach ($allQuestions as $question) { ?>
@@ -118,6 +121,8 @@ input[type="submit"]:hover {
                 <?= htmlspecialchars($question['quiz_title']) ?>
             </div>
         <?php } ?>
+        <div id="error_questions" class="error_message"></div>
+
         <label>Sélectionner les cours:</label>
         <?php foreach ($allCours as $cours) { ?>
             <div>
@@ -125,20 +130,40 @@ input[type="submit"]:hover {
                 <?= htmlspecialchars($cours['titre']) ?>
             </div>
         <?php } ?>
+        <div id="error_cours" class="error_message"></div>
 
-        <br>
         <input type="submit" value="Créer le Test">
     </form>
-    <?php if ($message) echo "<p>$message</p>"; ?>
     <script>
-        // Validation de saisie en JavaScript pour le champ de titre du test
-        document.getElementById('createForm').addEventListener('submit', function(event) {
-            var quizTitle = document.getElementById('quiz_title').value.trim();
-            if (quizTitle.length === 0) {
-                alert('Veuillez saisir un titre pour le test.');
+        document.getElementById('testForm').onsubmit = function(event) {
+            var quizTitle = document.getElementById('quiz_title').value;
+            var questions = document.querySelectorAll('input[name="questions[]"]:checked');
+            var cours = document.querySelectorAll('input[name="cours[]"]:checked');
+            var errorTitle = document.getElementById('error_quiz_title');
+            var errorQuestions = document.getElementById('error_questions');
+            var errorCours = document.getElementById('error_cours');
+
+            // Clear previous errors
+            errorTitle.textContent = '';
+            errorQuestions.textContent = '';
+            errorCours.textContent = '';
+
+            // Validate fields
+            if (quizTitle.length < 3) {
+                errorTitle.textContent = 'Le titre du test doit contenir au moins 3 caractères.';
                 event.preventDefault();
             }
-        });
+
+            if (questions.length === 0) {
+                errorQuestions.textContent = 'Au moins une question doit être sélectionnée.';
+                event.preventDefault();
+            }
+
+            if (cours.length === 0) {
+                errorCours.textContent = 'Au moins un cours doit être sélectionné.';
+                event.preventDefault();
+            }
+        };
     </script>
 </body>
 </html>

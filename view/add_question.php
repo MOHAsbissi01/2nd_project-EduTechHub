@@ -5,21 +5,30 @@ error_reporting(E_ALL);
 require_once '../Model/QuestionModel.php';
 require_once '../controller/QuestionController.php';
 
-// Variable pour stocker le message de succès
+// Variable pour stocker le message de succès ou d'erreur
 $message = '';
+$messageType = 'success'; // 'error' pour les erreurs
 $isValid = true; // Variable pour valider le formulaire
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Les champs requis
-    $requiredFields = ['quiz_title','question_text', 'option1','option2','option3','correct_option'];
+    $requiredFields = ['quiz_title', 'question_text', 'option1', 'option2', 'option3', 'correct_option'];
 
-    // Vérifier si tous les champs requis sont présents dans $_POST
-    foreach($requiredFields as $field){
+    // Vérifier si tous les champs requis sont présents et valides dans $_POST
+    foreach($requiredFields as $field) {
         if(!isset($_POST[$field]) || empty($_POST[$field])){
-            $isValid = false; // Définir la validation sur false si un champ est manquant
+            $isValid = false;
             $message = "Le champ '$field' est requis.";
-            break; // Arrêter la vérification des champs dès qu'un champ est manquant
+            $messageType = 'error';
+            break;
         }
+    }
+
+    // Vérifications supplémentaires pour la longueur des champs
+    if($isValid && (strlen($_POST['quiz_title']) < 3 || strlen($_POST['question_text']) < 5)) {
+        $isValid = false;
+        $message = "Le titre du quiz doit contenir au moins 3 caractères et le texte de la question doit contenir au moins 5 caractères.";
+        $messageType = 'error';
     }
 
     if($isValid) {
@@ -37,10 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Ajouter la question en utilisant le contrôleur
         $questionController = new QuestionController();
         if ($questionController->addQuestion($question)) {
-            // Définir le message de succès
             $message = "Question ajoutée avec succès.";
+            $messageType = 'success';
         } else {
-            $message = "Question ajoutée avec succès.";
+            $message = "Erreur lors de l'ajout de la question.";
+            $messageType = 'error';
         }
     }
 }
@@ -62,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh; /* Utilisez min-height pour s'assurer que le contenu occupe au moins toute la hauteur de la fenêtre */
+            min-height: 100vh;
         }
 
         header {
@@ -71,17 +81,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-align: center;
             width: 100%;
             position: relative;
-            margin-bottom: 20px; /* Ajoutez de la marge en bas du header pour éviter que le contenu ne soit trop proche du logo */
+            margin-bottom: 20px;
         }
 
         header img {
             background-color: transparent;
             border-radius: 50%;
             z-index: 1;
-            max-width: 100%; /* Assurez-vous que le logo ne dépasse pas la largeur du header */
-            max-height: 150px; /* Définissez une hauteur maximale pour le logo */
+            max-width: 100%;
+            max-height: 150px;
         }
-
 
         h1 {
             color: #333;
@@ -89,12 +98,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         form {
-            width: 90%; /* Largeur du formulaire réduite */
+            width: 90%;
             margin: 20px auto;
             padding: 20px;
-            background-color: #edf0f5; /* Fond blanc */
-            border-radius: 8px; /* Coins arrondis */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+            background-color: #edf0f5;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         label {
@@ -116,11 +125,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         input[type="submit"] {
-            background-color: #4a90e2; /* Bleu vif */
-            color: #fff;
+            background-color: #4a90e2;
+            color: white;
             padding: 12px 24px;
             border: none;
-            border-radius: 30px; /* Coins arrondis */
+            border-radius: 30px;
             cursor: pointer;
             margin: 8px;
             font-size: 16px;
@@ -129,8 +138,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         input[type="submit"]:hover {
-            background-color: #357ebd; /* Bleu légèrement plus foncé au survol */
-            transform: scale(1.05); /* Légère animation de zoom au survol */
+            background-color: #357ebd;
+            transform: scale(1.05);
+        }
+
+        #message {
+            color: <?= $messageType === 'error' ? 'red' : 'green' ?>;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -166,14 +180,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <input type="submit" value="Add Question">
 </form>
-
-<!-- Script JavaScript pour afficher une alerte -->
-<script>
-    // Vérifier si le message de succès est défini
-    if ("<?php echo $message; ?>" !== "") {
-        // Afficher une alerte avec le message de succès
-        alert("<?php echo $message; ?>");
-    }
-</script>
 </body>
 </html>
