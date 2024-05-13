@@ -135,12 +135,12 @@ $message = $registerController->register();
                         var name = document.forms["registerForm"]["name"].value;
                         
                         if (email == "" || password == "" || cpassword=="" || name==""  ) {
-                            alert("Veuillez remplir tous les champs requis!");
+                            
                             return false; 
                         }
 
                             if (email.indexOf("@") == -1) {
-                        alert("L'email doit contenir un '@'!");
+                        
                         event.preventDefault();
                         return false;
                     }
@@ -154,7 +154,8 @@ $message = $registerController->register();
                     </script>
 
                 <div class="form-container">
-                    <form name="registerForm" action="" enctype="multipart/form-data" method="post" onsubmit="return validateForm()">
+                     <!--onsubmit="returnvalidateForm()" --> 
+                    <form name="registerForm" action="" enctype="multipart/form-data" method="post">
                        <h3>Register Now</h3>
                        <?php
                        if(isset($message)){

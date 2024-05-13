@@ -62,28 +62,23 @@
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="indexD.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                     
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="buttonD.html" class="dropdown-item">Buttons</a>
-                            <a href="typographyD.html" class="dropdown-item">Typography</a>
-                            <a href="elementD.html" class="dropdown-item">Other Elements</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-key me-2"></i>Questions Quizz</a>
+                        <div class="../2nd_project-EduTechHub/dropdown-menu bg-transparent border-0">
+                            <a href="../2nd_project-EduTechHub/dshb-quiz.php" class="dropdown-item">Créer</a>
+                            <a href="../2nd_project-EduTechHub/dshb-bookmarks.php" class="dropdown-item">Liste</a>
                         </div>
                     </div>
-                    <a href="widgetD.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
+
                     <a href="rapportD.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>rapport PDF</a>
-                    <a href="tableD.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables de : Data et edit </a>
+                    <a href="tableD.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables: edit </a>
                     <a href="chartD.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="signinD.html" class="dropdown-item">Sign In</a>
-                            <a href="signupD.html" class="dropdown-item">Sign Up</a>
-                            <a href="404D.html" class="dropdown-item">404 Error</a>
-                            <a href="blankD.html" class="dropdown-item">Blank Page</a>
-                            <a href="indexD.html" class="dropdown-item">USER INTERFACE </a>
-                        </div>
-                    </div>
+                    <a href="../2nd_project-EduTechHub/listeD.php" class="nav-item nav-link"><i class="fa fa-book me-2"></i>Documents</a>
+                    <a href="../2nd_project-EduTechHub/testD.php" class="nav-item nav-link"><i class="fa fa-clipboard me-2"></i>Test/Quizz</a>
+                    <a href="../2nd_project-EduTechHub/listeResD.php" class="nav-item nav-link"><i class="fa fa-dice me-2"></i>Résultats</a>
+                     
+
                 </div>
             </nav>
         </div>
