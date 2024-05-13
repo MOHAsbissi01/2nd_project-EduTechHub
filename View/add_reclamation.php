@@ -1,7 +1,7 @@
 <?php
     include "../config.php";
-    include "../Controller/reclamationC.php";
-    include "../Model/reclamation.php";
+    include "../controller/reclamationC.php";
+    include "../model/reclamation.php";
     
     $error = null;
     $rec = null;

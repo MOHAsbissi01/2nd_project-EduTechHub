@@ -2,25 +2,7 @@
 <html lang="en">
 
 <head>
-<script>
-$(document).ready(function(){
-    $("#search").keyup(function(){
-        var query = $(this).val();
-        if (query != "") {
-            $.ajax({
-                url: 'search.php',
-                method: 'POST',
-                data: {query:query},
-                success: function(data) {
-                    $('#searchResult').html(data);
-                }
-            });
-        } else {
-            $('#searchResult').html("");
-        }
-    });
-});
-</script>
+
     <meta charset="utf-8">
     <title>EduTechHub
         - Bootstrap Admin Template</title>
@@ -83,8 +65,7 @@ $(document).ready(function(){
                                         <th scope="col">Add reponse</th>
                                         <th scope="col">Actions</th>
                                     </tr>
-                                    <input type="text" id="search" placeholder="Search by name...">
-                                        <div id="searchResult"></div>
+                                
                                 </thead>
                                 <tbody>
                                     <?php
