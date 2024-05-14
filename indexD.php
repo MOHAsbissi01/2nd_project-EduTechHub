@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+<link rel="shortcut icon" type="image/x-icon" href="logo.ico" />
     <meta charset="utf-8">
     <title>EduTechHub - Bootstrap Admin Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
