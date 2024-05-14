@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <title>EduTechHub
         - Bootstrap Admin Template</title>
@@ -34,7 +33,6 @@
 </head>
 
 <body>
-
     <div class="container-fluid position-relative bg-white d-flex p-0">
         <?php require ('menu.php'); ?>
         <!-- Table Start -->
@@ -65,7 +63,6 @@
                                         <th scope="col">Add reponse</th>
                                         <th scope="col">Actions</th>
                                     </tr>
-                                
                                 </thead>
                                 <tbody>
                                     <?php
@@ -122,9 +119,6 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
