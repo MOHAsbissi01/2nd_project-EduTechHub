@@ -80,10 +80,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'], $_POST['test_
     <?php if (!empty($emailError)) echo "<p style='color: red;'>$emailError</p>"; ?>
     <form action="" method="POST">
         <label for="email">Votre email:</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" >
 
         <label for="tests">Test à passer:</label>
-        <select id="tests" name="test_id" required>
+        <select id="tests" name="test_id" >
             <option value="">Sélectionnez un test</option>
             <?php foreach ($testOptions as $test) { ?>
                 <option value="<?= htmlspecialchars($test['id_test']) ?>">

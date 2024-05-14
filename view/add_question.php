@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $message = "Question ajoutée avec succès.";
             $messageType = 'success';
         } else {
-            $message = "Erreur lors de l'ajout de la question.";
+           // $message = "Erreur lors de l'ajout de la question.";
             $messageType = 'error';
         }
     }

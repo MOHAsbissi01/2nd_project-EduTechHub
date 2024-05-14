@@ -70,7 +70,7 @@
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                         <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                        <li><a href="meetings.html">Meetings</a></li>
+                     
                         <li><a href="../2nd_project-EduTechHub/test.php">Test</a></li> <!-- Ajout du lien Test -->
                         <li class="scroll-to-section"><a href="#apply">Apply Now</a></li>
                         <li class="has-sub">
@@ -81,7 +81,9 @@
                             </ul>
                         </li>
                         <li class="scroll-to-section"><a href="#courses">Courses</a></li>
-                        <li class="scroll-to-section"><a href="#contact">Contact Us</a></li>
+                        <li><a href="events.php">Events</a></li>
+                        
+                        <li><a href="add_reclamation.php">Reclamation</a></li>
                         <li><a href="indexD.php">ADMIN</a></li> 
                     </ul>        
                     <a class='menu-trigger'>

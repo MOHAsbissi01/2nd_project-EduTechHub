@@ -70,6 +70,12 @@
                             <a href="../2nd_project-EduTechHub/dshb-bookmarks.php" class="dropdown-item">Liste</a>
                         </div>
                     </div>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Events Management</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="addEvent.php" class="dropdown-item">Add Event</a>
+                            <a href="eventslist.php" class="dropdown-item">Events List</a>
+                            <a href="stat.php" class="dropdown-item">Events Stats</a>
+                        </div>
 
                     <a href="rapportD.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>rapport PDF</a>
                     <a href="tableD.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables: edit </a>
@@ -77,6 +83,8 @@
                     <a href="../2nd_project-EduTechHub/listeD.php" class="nav-item nav-link"><i class="fa fa-book me-2"></i>Documents</a>
                     <a href="../2nd_project-EduTechHub/testD.php" class="nav-item nav-link"><i class="fa fa-clipboard me-2"></i>Test/Quizz</a>
                     <a href="../2nd_project-EduTechHub/listeResD.php" class="nav-item nav-link"><i class="fa fa-dice me-2"></i>Résultats</a>
+                    <a href="Back Office\Reclamation.php" class="nav-item nav-link"><i class="fa fa-dice me-2"></i>Reclamtion</a>
+                    <a href="Back Office\Reponse.php" class="nav-item nav-link"><i class="fa fa-dice me-2"></i>Reponse</a>
                      
 
                 </div>
