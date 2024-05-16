@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Include the EventModel file
-require_once '../Model/eventModel.php';
+require_once '../model/eventModel.php';
 require_once '../db.php';
 
 // Check if the event ID is provided in the URL
@@ -26,6 +26,16 @@ if (!$event) {
     exit;
 }
 $participants = $eventModel->getParticipantsByEventId($eventId);
+
+// Get participants for the event
+$participants = $eventModel->getParticipantsByEventId($eventId);
+
+// Get the maximum number of participants allowed for the event
+$maxParticipants = $event['max'];
+
+// Check if the maximum number of participants is reached
+$maxParticipantsReached = count($participants) >= $maxParticipants;
+
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +67,7 @@ $participants = $eventModel->getParticipantsByEventId($eventId);
             <div class="row">
                 <div class="col-12">
                     <nav class="main-nav">
-                        <a href="../index.php" class="logo">EduTechHub</a>
+                        <a href="index-.php" class="logo">EduTechHub</a>
                         <ul class="nav">
                             <!-- Add your navigation links here -->
                         </ul>
@@ -141,7 +151,14 @@ $participants = $eventModel->getParticipantsByEventId($eventId);
 </div>
 
 
-            <!-- Subscription form -->
+<div class="col-lg-6">
+                    <!-- Display error message if max participants reached -->
+                    <?php if ($maxParticipantsReached) : ?>
+                        <div class="alert alert-danger" role="alert">
+                            Maximum number of participants reached. Subscription closed.
+                        </div>
+                    <?php endif; ?>
+                    </div>
            <!-- Subscription form -->
 <div class="row justify-content-center mt-5">
     <div class="col-lg-6">
@@ -151,16 +168,11 @@ $participants = $eventModel->getParticipantsByEventId($eventId);
                 <form action="subscribe.php" method="post">
     <input type="hidden" name="event_id" value="<?= $eventId ?>">
     <div class="mb-3">
-        <label for="username1" class="form-label">Username 1</label>
-        <input type="text" class="form-control" id="username1" name="username[]" oninput="validateUsername(this)" required>
-<div id="usernameError" class="invalid-feedback" style="display: none;">Username cannot contain numbers.</div>
-
         <label for="email1" class="form-label">Email 1</label>
         <input type="email" class="form-control" id="email1" name="email[]" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Enter a valid email address" required>
-
     </div>
     <div class="additional-participants"></div>
-    <button type="button" class="btn btn-secondary add-participant">Add Participant</button>
+    <button type="button" class="btn btn-secondary add-participant">Add another Participant</button>
     <button type="submit" class="btn btn-primary">Subscribe</button>
 </form>
 
@@ -181,7 +193,7 @@ $participants = $eventModel->getParticipantsByEventId($eventId);
 </div>
     </div>
 
-<script>
+    <script>
 document.addEventListener('DOMContentLoaded', function() {
     var addButton = document.querySelector('.add-participant');
     var additionalParticipants = document.querySelector('.additional-participants');
@@ -193,8 +205,6 @@ document.addEventListener('DOMContentLoaded', function() {
         var div = document.createElement('div');
         div.innerHTML = `
             <div class="mb-3">
-                <label for="username${count}" class="form-label">Username ${count}</label>
-                <input type="text" class="form-control" id="username${count}" name="username[]">
                 <label for="email${count}" class="form-label">Email ${count}</label>
                 <input type="email" class="form-control" id="email${count}" name="email[]">
             </div>
@@ -203,57 +213,26 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-</script>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script>
-// Add a JavaScript function to check the username input value
-
-function validateUsername(input) {
-    var username = input.value;
-    var errorDiv = document.getElementById('usernameError');
-    if (/\d/.test(username)) {
-        // Username contains numbers
-        errorDiv.style.display = 'block';
-        input.classList.add('is-invalid');
-    } else {
-        // Username is valid
-        errorDiv.style.display = 'none';
-        input.classList.remove('is-invalid');
-    }
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-        var subscribeForm = document.querySelector('form[action="subscribe.php"]');
-        subscribeForm.addEventListener('submit', function(event) {
-            var usernames = document.querySelectorAll('input[name="username[]"]');
-            var emails = document.querySelectorAll('input[name="email[]"]');
-            var isValid = true;
+    var subscribeForm = document.querySelector('form[action="subscribe.php"]');
+    subscribeForm.addEventListener('submit', function(event) {
+        var emails = document.querySelectorAll('input[name="email[]"]');
+        var isValid = true;
 
-            // Validate usernames
-            usernames.forEach(function(usernameInput) {
-                if (!/^[a-zA-Z]+$/.test(usernameInput.value)) {
-                    isValid = false;
-                    alert("Username should only contain alphabetic characters.");
-                }
-            });
-
-            // Validate emails
-            emails.forEach(function(emailInput) {
-                if (!emailInput.checkValidity()) {
-                    isValid = false;
-                    alert("Please enter a valid email address.");
-                }
-            });
-
-            if (!isValid) {
-                event.preventDefault(); // Prevent form submission if inputs are invalid
+        // Validate emails
+        emails.forEach(function(emailInput) {
+            if (!emailInput.checkValidity()) {
+                isValid = false;
+                alert("Please enter a valid email address.");
             }
         });
-    });
 
+        if (!isValid) {
+            event.preventDefault(); // Prevent form submission if inputs are invalid
+        }
+    });
+});
 </script>
+
 </body>
 </html>

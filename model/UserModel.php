@@ -21,7 +21,7 @@ class UserModel {
         $existingUser = $stmt->fetch();
            
         if($existingUser){
-            return 'Email address is already registered!';
+            return 'Email address is registered!';
         }
     
     

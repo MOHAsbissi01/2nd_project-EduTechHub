@@ -33,11 +33,11 @@ $events = $eventModel->getEvents()->fetchAll(PDO::FETCH_ASSOC); //
             <div class="row">
                 <div class="col-12">
                     <nav class="main-nav">
-                        <a href="../index.php" class="logo">EduTechHub</a>
+                        <a href="index-.php" class="logo">EduTechHub</a>
                         <ul class="nav">
-                            <li><a href="../index.php">Home</a></li>
+                            <li><a href="index-.php">Home</a></li>
                             <li><a href="events.php" class="active">Events</a></li>
-                            <li><a href="../index.php">Apply Now</a></li>
+                            <li><a href="index-.php">Apply Now</a></li>
                             <li class="has-sub">
                                 <a href="javascript:void(0)">Pages</a>
                                 <ul class="sub-menu">
@@ -45,8 +45,8 @@ $events = $eventModel->getEvents()->fetchAll(PDO::FETCH_ASSOC); //
                                     <li><a href="events-details.php">Events Details</a></li>
                                 </ul>
                             </li>
-                            <li><a href="../index.php">Courses</a></li>
-                            <li><a href="../index.php">Contact Us</a></li>
+                            <li><a href="index-.php">Courses</a></li>
+                            <li><a href="index-.php">Contact Us</a></li>
                             <li><a href="../indexD.php">ADMIN</a></li>
                         </ul>
                         <a class='menu-trigger'><span>Menu</span></a>

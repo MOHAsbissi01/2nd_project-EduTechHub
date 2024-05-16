@@ -17,11 +17,11 @@
             <div class="row">
                 <div class="col-12">
                     <nav class="main-nav">
-                        <a href="index.php" class="logo">EduTechHub</a>
+                        <a href="../view/index-.php" class="logo">EduTechHub</a>
                         <ul class="nav">
-                            <li><a href="index.php">Home</a></li>
+                            <li><a href="../view/index-.php">Home</a></li>
                             <li><a href="meetings.html">Meetings</a></li>
-                            <li><a href="index.php" class="active">Test</a></li>
+                            <li><a href="../view/index-.php" class="active">Test</a></li>
                             <li><a href="contact.html">Contact Us</a></li>
                         </ul>
                         <a class='menu-trigger'><span>Menu</span></a>

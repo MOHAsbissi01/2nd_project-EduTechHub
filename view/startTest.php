@@ -41,7 +41,7 @@ if (!$testDetails) {
                         <ul class="nav">
                             <li><a href="index.html">Home</a></li>
                             <li><a href="meetings.html">Meetings</a></li>
-                            <li><a href="index.php" class="active">Test</a></li>
+                            <li><a href="index-.php" class="active">Test</a></li>
                             <li><a href="contact.html">Contact Us</a></li>
                         </ul>
                         <a class='menu-trigger'><span>Menu</span></a>

@@ -16,17 +16,17 @@ if(isset($_POST['inscription_id']) && !empty($_POST['inscription_id'])) {
         $result = $eventModel->cancelInscription($inscriptionId);
 
         if($result) {
-            echo "<script>alert('Inscription canceled successfully.'); window.location.href = '../index.php'; </script>";
+            echo "<script>alert('Inscription canceled successfully.'); window.location.href = 'index-.php'; </script>";
         } else {
-            echo "<script>alert('Failed to cancel inscription.'); window.location.href = '../index.php'; </script>";
+            echo "<script>alert('Failed to cancel inscription.'); window.location.href = 'index-.php'; </script>";
         }
     } else {
         // Display alert message if inscription ID doesn't exist
-        echo "<script>alert('Inscription ID does not exist.'); window.location.href = '../index.php'; </script>";
+        echo "<script>alert('Inscription ID does not exist.'); window.location.href = 'index-.php'; </script>";
     }
 } else {
     // Display alert message if inscription ID is empty
-    echo "<script>alert('Please enter the Inscription ID.'); window.location.href = '../index.php'; </script>";
+    echo "<script>alert('Please enter the Inscription ID.'); window.location.href = 'index-.php'; </script>";
 }
 ?>
 

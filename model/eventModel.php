@@ -143,16 +143,8 @@ class EventModel {
         }
     }
 
-    public function subscribeEvent($eventId, $usernames, $emails) {
+    public function subscribeEvent($eventId, $emails) {
         try {
-            // Check if $usernames and $emails are strings, convert them to arrays if necessary
-            if (!is_array($usernames)) {
-                $usernames = [$usernames]; // Convert string to array with one element
-            }
-            if (!is_array($emails)) {
-                $emails = [$emails]; // Convert string to array with one element
-            }
-    
             // Get the current count of participants for the event
             $currentParticipantsCount = $this->getCurrentParticipantsCount($eventId);
     
@@ -160,36 +152,53 @@ class EventModel {
             $maxParticipants = $this->getMaxParticipants($eventId);
     
             // Check if the maximum number of participants has been reached
-            if ($currentParticipantsCount + count($usernames) <= $maxParticipants) {
-                // Start a transaction
-                $this->conn->beginTransaction();
-    
-                // Prepare the SQL statement
-                $sql = "INSERT INTO inscriptions (event_id, user_name, email) VALUES (?, ?, ?)";
-                $stmt = $this->conn->prepare($sql);
-    
-                // Bind parameters and insert multiple rows
-                foreach ($usernames as $index => $username) {
-                    $stmt->execute([$eventId, $username, $emails[$index]]);
-                }
-    
-                // Commit the transaction
-                $this->conn->commit();
-    
-                // Return true to indicate successful subscription
-                return true;
-            } else {
+            if ($currentParticipantsCount + count($emails) > $maxParticipants) {
                 // Maximum participants reached, return false
                 return false;
             }
-        } catch (PDOException $e) {
-            // Roll back the transaction on error
-            $this->conn->rollBack();
     
-            // Throw the exception to be handled at the caller level
-            throw $e;
+            // Prepare the query outside the loop
+            $selectQuery = "SELECT name FROM users WHERE email = :email";
+            $selectStmt = $this->conn->prepare($selectQuery);
+            
+            foreach ($emails as $email) {
+                // Bind email parameter
+                $selectStmt->bindParam(':email', $email);
+                $selectStmt->execute();
+                $user = $selectStmt->fetch(PDO::FETCH_ASSOC);
+    
+                if ($user) {
+                    // User exists, proceed with subscription
+                    // Insert subscription into the inscriptions table
+                    $insertQuery = "INSERT INTO inscriptions (user_name, email, event_id) VALUES (:user_name, :email, :event_id)";
+                    $insertStmt = $this->conn->prepare($insertQuery);
+                    $insertStmt->bindParam(':user_name', $user['name']);
+                    $insertStmt->bindParam(':email', $email);
+                    // Assuming event_id is some specific event ID you're subscribing to
+                    $insertStmt->bindValue(':event_id', $eventId);
+                    $insertStmt->execute();
+                } else {
+                    // User doesn't exist, throw an exception
+                    throw new Exception("Error: Email address not found for $email");
+                }
+            }
+    
+            // Subscription successful
+            return true;
+        } catch(PDOException $e) {
+            // Handle database error
+            echo "Query error: " . $e->getMessage();
+            return false;
+        } catch(Exception $e) {
+            // Handle other errors
+            echo $e->getMessage();
+            return false;
         }
     }
+    
+    
+        
+    
     
     
     public function cancelInscription($inscriptionId) {

@@ -73,18 +73,13 @@
                      
                         <li><a href="../2nd_project-EduTechHub/test.php">Test</a></li> <!-- Ajout du lien Test -->
                         <li class="scroll-to-section"><a href="#apply">Apply Now</a></li>
-                        <li class="has-sub">
-                            <a href="javascript:void(0)">Pages</a>
-                            <ul class="sub-menu">
-                                <li><a href="meetings.html">Upcoming Meetings</a></li>
-                                <li><a href="meeting-details.html">Meeting Details</a></li>
-                            </ul>
-                        </li>
+                        
                         <li class="scroll-to-section"><a href="#courses">Courses</a></li>
                         <li><a href="events.php">Events</a></li>
                         
                         <li><a href="add_reclamation.php">Reclamation</a></li>
                         <li><a href="indexD.php">ADMIN</a></li> 
+                        <li> <a href="login.php">Logout</a> </li>
                     </ul>        
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -109,7 +104,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="caption">
-              <h6>Hello Students</h6>
+              <h6>Hello Admin</h6>
               <h2>Welcome to Education</h2>
               
                 <p  ><span style="color: red;">EduTechHub</span>, your gateway to innovative learning. Here, you can access interactive courses, expert tutorials, and a community dedicated to educational success. Start your journey with us and unlock new possibilities! </p>
@@ -196,104 +191,7 @@
     </div>
   </section>
 
-  <section class="upcoming-meetings" id="meetings">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="section-heading">
-            <h2>Upcoming Meetings</h2>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="categories">
-            <h4>Meeting Catgories</h4>
-            <ul>
-              <li><a href="#">Problem-Solving Meeting</a></li>
-              <li><a href="#">Decision Making Meeting</a></li>
-              <li><a href="#">Information Dissemination Meeting</a></li>
-              <li><a href="#">Innovative Meeting</a></li>
-              <li><a href="#">Team Building Meeting</a></li>
-            </ul>
-            <div class="main-button-red">
-              <a href="meetings.html">All Upcoming Meetings</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-8">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="meeting-item">
-                <div class="thumb">
-                  <div class="price">
-                    <span>TND 22.00</span>
-                  </div>
-                  <a href="meeting-details.html"><img src="assets/images/meeting-01.jpg" alt="New Lecturer Meeting"></a>
-                </div>
-                <div class="down-content">
-                  <div class="date">
-                    <h6>Nov <span>10</span></h6>
-                  </div>
-                  <a href="meeting-details.html"><h4>New Lecturers Meeting</h4></a>
-                  <p>Morbi in libero blandit lectus<br>cursus ullamcorper.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="meeting-item">
-                <div class="thumb">
-                  <div class="price">
-                    <span>TND 36.00</span>
-                  </div>
-                  <a href="meeting-details.html"><img src="assets/images/meeting-02.jpg" alt="Online Teaching"></a>
-                </div>
-                <div class="down-content">
-                  <div class="date">
-                    <h6>Nov <span>24</span></h6>
-                  </div>
-                  <a href="meeting-details.html"><h4>Online Teaching Techniques</h4></a>
-                  <p>Morbi in libero blandit lectus<br>cursus ullamcorper.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="meeting-item">
-                <div class="thumb">
-                  <div class="price">
-                    <span>TND 14.00</span>
-                  </div>
-                  <a href="meeting-details.html"><img src="assets/images/meeting-03.jpg" alt="Higher Education"></a>
-                </div>
-                <div class="down-content">
-                  <div class="date">
-                    <h6>Nov <span>26</span></h6>
-                  </div>
-                  <a href="meeting-details.html"><h4>Higher Education Conference</h4></a>
-                  <p>Morbi in libero blandit lectus<br>cursus ullamcorper.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="meeting-item">
-                <div class="thumb">
-                  <div class="price">
-                    <span>TND 48.00</span>
-                  </div>
-                  <a href="meeting-details.html"><img src="assets/images/meeting-04.jpg" alt="Student Training"></a>
-                </div>
-                <div class="down-content">
-                  <div class="date">
-                    <h6>Nov <span>30</span></h6>
-                  </div>
-                  <a href="meeting-details.html"><h4>Student Training Meetup</h4></a>
-                  <p>Morbi in libero blandit lectus<br>cursus ullamcorper.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+   
 
   <section class="apply-now" id="apply">
     <div class="container">
@@ -699,7 +597,7 @@
               }
             }
 
-?>
+              ?>
           <script>
               function filterByType(type) {
                   var courss = document.getElementsByClassName('cours');
@@ -773,45 +671,14 @@
   <section class="contact-us" id="contact">
     <div class="container">
       <div class="row">
-        <div class="col-lg-9 align-self-center">
+        <div class="col-lg-8 align-self-center">
           <div class="row">
-            <div class="col-lg-12">
-              <form id="contact" action="" method="post">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <h2>Let's get in touch</h2>
-                  </div>
-                  <div class="col-lg-4">
-                    <fieldset>
-                      <input name="name" type="text" id="name" placeholder="YOURNAME...*" required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-4">
-                    <fieldset>
-                    <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="YOUR EMAIL..." required="">
-                  </fieldset>
-                  </div>
-                  <div class="col-lg-4">
-                    <fieldset>
-                      <input name="subject" type="text" id="subject" placeholder="SUBJECT...*" required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <textarea name="message" type="text" class="form-control" id="message" placeholder="YOUR MESSAGE..." required=""></textarea>
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <button type="submit" id="form-submit" class="button">SEND MESSAGE NOW</button>
-                    </fieldset>
-                  </div>
-                </div>
-              </form>
+            <div class="col-lg-8">
+              
             </div>
           </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-8">
           <div class="right-info">
             <ul>
               <li>

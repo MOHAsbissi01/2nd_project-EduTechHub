@@ -38,7 +38,7 @@ if (!$testDetails) {
                     <nav class="main-nav">
                         <a href="index.html" class="logo">EduTechHub</a>
                         <ul class="nav">
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="index-.php">Home</a></li>
                             <li><a href="meetings.html">Meetings</a></li>
                             <li><a href="index.php" class="active">Test</a></li>
                             <li><a href="contact.html">Contact Us</a></li>

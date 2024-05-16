@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-require_once '../Model/EventModel.php';
+require_once '../model/EventModel.php';
 
 class EventController {
     private $eventModel;
@@ -16,7 +16,7 @@ class EventController {
         $events = $this->eventModel->getEvents();
         
         // Pass the events to the view for display
-        require_once '../View/events.php'; // Assuming events.php is your webpage for displaying events
+        require_once '../view/events.php'; // Assuming events.php is your webpage for displaying events
     }
     
     public function getEvents() {
@@ -57,7 +57,7 @@ class EventController {
             $result = $this->eventModel->addEvent($nom, $sujet, $date, $lieu, $organizateur, $affiche, $type, $frais, $duree, $max);
 
             if ($result) {
-                header('Location: ../View/success.php');
+                header('Location: ../view/success.php');
                 exit;
             } else {
                 return "<script>alert('An error occurred during creation.')</script>";
@@ -65,9 +65,9 @@ class EventController {
         }
         return false;
     }
-    public function subscribeEvent($eventId, $username, $email) {
+    public function subscribeEvent($eventId, $email) {
         // Call the model method to subscribe the user to the event
-        $result = $this->eventModel->subscribeEvent($eventId, $username, $email);
+        $result = $this->eventModel->subscribeEvent($eventId, $email);
         
         if ($result) {
             // Subscription successful

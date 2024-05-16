@@ -28,7 +28,7 @@
     <div class="success-message">
         <h1>Event Created Successfully!</h1>
         <p>Your event has been successfully created.</p>
-        <a href="../index.php">Go Back to Home</a>
+        <a href="index-.php">Go Back to Home</a>
     </div>
 </body>
 </html>
